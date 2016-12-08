@@ -125,7 +125,8 @@ def safe_data(dict_of_users, file_title):
         save.write(output.encode('utf8'))
 
 
-all_users = load_data_from_file('all_users_cleaned')
+
+all_users = load_data_from_file('all_users_cleaned2')
 
 nb_users = len(all_users)
 nb_women = 0
@@ -137,7 +138,8 @@ list_age_min_women_distribution = []
 list_age_max_men_distribution = []
 list_age_max_women_distribution = []
 rel_status = {}
-orientation = {}
+women_orientation = {}
+men_orientation = {}
 casual_sex_women = 0
 casual_sex_men = 0
 friend_women = 0
@@ -152,65 +154,69 @@ max_age_per_age = {'Women':{}, 'Men': {}}
 min_age_per_age = {'Women':{}, 'Men': {}}
 
 for user, dictionary in all_users.iteritems():
-   age_expectations = dictionary['looking_for']['age']
-   age_expectations = age_expectations.split('-')
-   age_expectations = dictionary['looking_for']['age']
-   age_expectations = age_expectations.split('-')
-   age = dictionary['age']
-   if dictionary['gender'] == 'Woman':
-       if age in max_age_per_age['Women']:
-           max_age_per_age['Women'][age].append(age - int(age_expectations[1]))
-       else:
-           max_age_per_age['Women'][age] = [age - int(age_expectations[1])]
-       if age in min_age_per_age['Women']:
-           min_age_per_age['Women'][age].append(age - int(age_expectations[0]))
-       else:
-           min_age_per_age['Women'][age] = [age - int(age_expectations[0])]
-       list_age_min_women_distribution.append(int(age_expectations[0]))
-       list_age_max_women_distribution.append(int(age_expectations[1]))
-       nb_women += 1
-       list_age_women_distribution.append(dictionary['age'])
-       if 'casual_sex' in dictionary['looking_for']:
-           casual_sex_women += 1
-       if 'friend' in dictionary['looking_for']:
-           friend_women += 1
-       if 'long_term' in dictionary['looking_for']:
-           long_women += 1
-       if 'short_term' in dictionary['looking_for']:
-           short_women += 1
-       if dictionary['looking_for']['near'] == True:
-           near_women += 1
-   else:
-       if age in max_age_per_age['Men']:
-           max_age_per_age['Men'][age].append(age - int(age_expectations[1]))
-       else:
-           max_age_per_age['Men'][age] = [age - int(age_expectations[1])]
-       if age in min_age_per_age['Men']:
-           min_age_per_age['Men'][age].append(age - int(age_expectations[0]))
-       else:
-           min_age_per_age['Men'][age] = [age - int(age_expectations[0])]
-       if 'casual_sex' in dictionary['looking_for']:
-           casual_sex_men += 1
-       if 'friend' in dictionary['looking_for']:
-           friend_men += 1
-       if 'long_term' in dictionary['looking_for']:
-           long_men += 1
-       if 'short_term' in dictionary['looking_for']:
-           short_men += 1
-       if dictionary['looking_for']['near'] == True:
-           near_men += 1
-       list_age_min_men_distribution.append(int(age_expectations[0]))
-       list_age_max_men_distribution.append(int(age_expectations[1]))
-       nb_men += 1
-       list_age_men_distribution.append(dictionary['age'])
-   if dictionary['rel_status'] not in rel_status:
-       rel_status[dictionary['rel_status']] = 1
-   else:
-       rel_status[dictionary['rel_status']] += 1
-   if dictionary['orientation'] not in orientation:
-       orientation[dictionary['orientation']] = 1
-   else:
-       orientation[dictionary['orientation']] += 1
+    age_expectations = dictionary['looking_for']['age']
+    age_expectations = age_expectations.split('-')
+    age_expectations = dictionary['looking_for']['age']
+    age_expectations = age_expectations.split('-')
+    age = dictionary['age']
+    if dictionary['gender'] == 'Woman':
+        if dictionary['orientation'] not in women_orientation:
+            women_orientation[dictionary['orientation']] = 1
+        else:
+            women_orientation[dictionary['orientation']] += 1
+        if age in max_age_per_age['Women']:
+            max_age_per_age['Women'][age].append(age - int(age_expectations[1]))
+        else:
+            max_age_per_age['Women'][age] = [age - int(age_expectations[1])]
+        if age in min_age_per_age['Women']:
+            min_age_per_age['Women'][age].append(age - int(age_expectations[0]))
+        else:
+            min_age_per_age['Women'][age] = [age - int(age_expectations[0])]
+        list_age_min_women_distribution.append(int(age_expectations[0]))
+        list_age_max_women_distribution.append(int(age_expectations[1]))
+        nb_women += 1
+        list_age_women_distribution.append(dictionary['age'])
+        if 'casual_sex' in dictionary['looking_for']:
+            casual_sex_women += 1
+        if 'friend' in dictionary['looking_for']:
+            friend_women += 1
+        if 'long_term' in dictionary['looking_for']:
+            long_women += 1
+        if 'short_term' in dictionary['looking_for']:
+            short_women += 1
+        if dictionary['looking_for']['near'] == True:
+            near_women += 1
+    else:
+        if dictionary['orientation'] not in men_orientation:
+            men_orientation[dictionary['orientation']] = 1
+        else:
+            men_orientation[dictionary['orientation']] += 1
+        if age in max_age_per_age['Men']:
+            max_age_per_age['Men'][age].append(age - int(age_expectations[1]))
+        else:
+            max_age_per_age['Men'][age] = [age - int(age_expectations[1])]
+        if age in min_age_per_age['Men']:
+            min_age_per_age['Men'][age].append(age - int(age_expectations[0]))
+        else:
+            min_age_per_age['Men'][age] = [age - int(age_expectations[0])]
+        if 'casual_sex' in dictionary['looking_for']:
+            casual_sex_men += 1
+        if 'friend' in dictionary['looking_for']:
+            friend_men += 1
+        if 'long_term' in dictionary['looking_for']:
+            long_men += 1
+        if 'short_term' in dictionary['looking_for']:
+            short_men += 1
+        if dictionary['looking_for']['near'] == True:
+            near_men += 1
+        list_age_min_men_distribution.append(int(age_expectations[0]))
+        list_age_max_men_distribution.append(int(age_expectations[1]))
+        nb_men += 1
+        list_age_men_distribution.append(dictionary['age'])
+    if dictionary['rel_status'] not in rel_status:
+        rel_status[dictionary['rel_status']] = 1
+    else:
+        rel_status[dictionary['rel_status']] += 1
 
 list_age = sorted(list_age_women_distribution + list_age_men_distribution)
 list_age_min_men_distribution = sorted(list_age_min_men_distribution)
