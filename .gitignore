@@ -1,4 +1,11 @@
+# Data
 db.sqlite3
 /data
+
+# Virtual environement
 virtualenv
+
+# Python, Notebook and Pycharm
 *.ipynb_check
+*.pyc
+.idea
