@@ -11,26 +11,34 @@ To build the application we used: Django and Neo4J.
 
 To download the project:
 
+'''
 git clone https://github.com/ADBFinalProject/FinalProject
 cd FinalProject
+'''
 
 Now you will have to use the virtual environement.
 
+'''
 pip install virtualenv
 virtualenv virtualenv
 source virtualenv/bin/activate
 pip install -r requirements.txt
+'''
 
 Now let's launch the application:
 
+'''
 cd application/dating_app
 python manage.py migrate
 python manage.py createsuperuser
 # Follow the instruction
+'''
 
 Now you should be able to run the server:
 
+'''
 python manage.py runserver
+'''
 
 Go on: http://127.0.0.1:8000/
 
