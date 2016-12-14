@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{% static 'style/css/base.css' %}">
+	<link rel="stylesheet" href="{% static 'js/jquery.easing.1.3.js' %}">
+
+
+	<title>Good dating app name - Let's meet!</title>
+</head>
+
+<body>
+<header id="header">
+	<nav id=anchor-nav>
+        <a href="/">
+            <img id="blog-logo" src="{% static 'img/logo.png' %}"/> <!-- Find a good image for the logo -->
+        </a>
+		<ul id="main-menu">
+            {% block anchor %}
+	        {% endblock %}
+    </ul>
+	</nav>
+</header>
+
+<div id="main_container">
+	{% block content %}
+	{% endblock %}
+</div>
+
+</body>
+</html>

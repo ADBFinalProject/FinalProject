@@ -1,0 +1,73 @@
+
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.logo{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+div #main_logo{
+    display: block;
+    width: 300px;
+    height: 100px;
+    top: 20%;
+    left:50%;
+    margin-left: -150px;
+}
+
+div #main_logo img{
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: auto;
+    margin: 0 auto;
+}
+
+
+div #home{
+    top: 50%;
+    left: 50%;
+    display: block;
+    position: absolute;
+    width: 750px;
+    height: 417px;
+    margin-top: -208.5px;
+    margin-left: -375px;
+}
+
+div .wrapper{
+    margin-left:auto;
+    margin-right:auto;
+    height:auto;
+    width:auto;
+}
+
+div #inscription{
+    text-align: center;
+    width: 750px;
+    height: 417px;
+    clear:left;
+}
+
+div #inscriptionField{
+  position: relative;
+  top: 20%;
+}
+
+#welcome{
+    color: #FFFFFF;
+    font-size:30px;
+}
+
+#genderInscription{
+    margin-top: 5%;
+}
+
+button{
+    margin-right:3%;
+    height: 20%;
+    width: 20%;
+}
