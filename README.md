@@ -1,3 +1,5 @@
+# Purpose of this project
+
 Welcome on our Final project for the Advanced database course.
 
 The project is to build a dating app. We also need to fill it with 1000 users.
@@ -8,6 +10,7 @@ We in total collect 3000 users.
 
 To build the application we used: Django and Neo4J.
 
+# Usage
 
 To download the project:
 
