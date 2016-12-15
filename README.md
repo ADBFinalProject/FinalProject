@@ -45,3 +45,9 @@ If you want to access to the admin interface:
 
 Go on: http://127.0.0.1:8000/admin
 
+# Design of the project
+
+![alt tag](https://github.com/ADBFinalProject/FinalProject/img/index)
+![alt tag](https://github.com/ADBFinalProject/FinalProject/img/login)
+
+

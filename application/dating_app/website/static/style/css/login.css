@@ -1,0 +1,40 @@
+#loginForm{
+    top: 50%;
+    left: 50%;
+    display: block;
+    position: absolute;
+    text-align:center;
+    width:600px;
+    height:300px;
+    margin-top: -150px;
+    margin-left: -300px;
+    border: 3px outset black;
+    border-radius: 10px;
+}
+
+#textField p{
+    color: #FFFFFF;
+    font-size:30px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#forgottenPassword{
+    color: #FFFFFF;
+    font-size:15px;
+    margin-top: 3%;
+}
+
+#nameField{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+
+#passwordField{
+    margin-bottom: 5%;
+}
+
+.loginField{
+    border-radius: 10px;
+}

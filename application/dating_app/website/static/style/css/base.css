@@ -41,3 +41,14 @@ body{
 .active{
 	color: #FFFFFF;
 }
+
+.btn{
+    border-radius: 24px;
+    background: #000000;
+    color: #FFFFFF;
+    border-color: #635C5C
+}
+
+.btn:hover{
+    background: #E9E6E6;
+}

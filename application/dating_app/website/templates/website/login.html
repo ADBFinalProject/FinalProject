@@ -1,0 +1,26 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/css/login.css' %}">
+
+<div id="home">
+    <div id="loginForm">
+        <div id="textField">
+            <p id="loginInstruction">Use your account:</p>
+        </div>
+        <div id="nameField">
+            <input class="loginField" type="text" placeholder="Username">
+        </div>
+        <div id="passwordField">
+            <input class="loginField" type="password" placeholder="Password" >
+        </div>
+        <div id="connectButton">
+            <button class="btn">Login</button>
+        </div>
+        <div id="forgottenPassword">
+            <a id="loginInstruction">I forgot my password</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
