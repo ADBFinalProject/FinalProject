@@ -48,9 +48,9 @@ Go on: http://127.0.0.1:8000/admin
 # Design of the project
 
 Our main page look like that:
-![alt tag](https://github.com/ADBFinalProject/FinalProject/tree/master/img/index.png)
+![alt tag](https://raw.githubusercontent.com/ADBFinalProject/FinalProject/master/img/index.png)
 
 This is the login page
-![alt tag](https://github.com/ADBFinalProject/FinalProject/tree/master/img/login.png)
+![alt tag](https://raw.githubusercontent.com/ADBFinalProject/FinalProject/master/img/login.png)
 
 
