@@ -38,17 +38,14 @@ body{
 	font: 400 16px/20px 'Bree Serif', Georgia, serif;
 }
 
-.active{
-	color: #FFFFFF;
-}
-
-.btn{
+.myButton{
     border-radius: 24px;
     background: #000000;
     color: #FFFFFF;
     border-color: #635C5C
 }
 
-.btn:hover{
-    background: #E9E6E6;
+.myButton:hover{
+    background: #FFFFFF;
+    color: black;
 }

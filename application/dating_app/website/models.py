@@ -3,10 +3,9 @@ from django.utils import timezone
 
 
 class User(models.Model):
-    pseudo = models.CharField(max_length=30)
-    summary = models.TextField()
-    age = models.IntegerField()
-    insertion_date = models.DateTimeField(default=timezone.now)
+    username = models.CharField(max_length=30)
+    password = models.CharField(max_length=30)
+    email = models.EmailField()
 
     def __str__(self):
-        return self.pseudo
+        return self.username

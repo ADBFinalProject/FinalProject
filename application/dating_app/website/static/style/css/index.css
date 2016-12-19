@@ -58,8 +58,31 @@ div #inscriptionField{
 }
 
 #welcome{
+    margin-top: -10%;
     color: #FFFFFF;
     font-size:30px;
+}
+
+#login{
+    margin-top:5%;
+    margin-bottom:5%;
+    color: #FFFFFF;
+    font-size:25px;
+}
+
+#signup{
+    color: #FFFFFF;
+    font-size:25px;
+    margin-top:5%;
+    margin-bottom:5%;
+}
+
+#signup p{
+    margin-bottom:3%;
+}
+
+#login p{
+    margin-bottom:3%;
 }
 
 #genderInscription{

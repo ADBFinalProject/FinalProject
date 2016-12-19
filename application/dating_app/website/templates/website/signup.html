@@ -1,0 +1,91 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+
+
+{% block anchor %}
+<li><a href="/login">Sign in</a></li>
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/css/signup.css' %}">
+
+
+<div id="home">
+    <form id="signupForm" method="post" action="">
+      {% csrf_token %}
+      {% include 'website/form-template.html' %}
+        <!--
+      <div class="form-group">
+        <label for="username" class="label">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+      </div>
+      <div class="form-group">
+        <label for="email" class="label">Email address</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="password" class="label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <div>
+            <label for="gender" class="label">What is your gender? </label>
+        </div>
+        <div class="btn-group" id="gender" data-toggle="buttons">
+            <label class="btn btn-danger">
+                <input type="radio" name="male" id="male"> Male
+            </label>
+            <label class="btn btn-danger">
+                <input type="radio" name="female" id="female" > Female
+            </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div>
+            <label for="gender" class="label">What is your sexual orientation? </label>
+        </div>
+        <div class="btn-group" id="sexualOrientation" data-toggle="buttons">
+            <label class="btn btn-danger">
+            <input type="radio" name="straight" id="straight"> Straight
+            </label>
+            <label class="btn btn-danger">
+                <input type="radio" name="bisexual" id="bisexual"> Bisexual
+            </label>
+            <label class="btn btn-danger">
+                <input type="radio" name="homosexual" id="homosexual"> Homosexual
+            </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div>
+            <label for="lookingFor" class="label">What are you looking for? </label>
+        </div>
+        <div id="lookingFor">
+            <label class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="casual" value="casual"> Casual sex
+            </label>
+            <label class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="friend" value="friend"> Friends
+            </label>
+            <label class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="short" value="short"> Short term relationship
+            </label>
+            <label class="form-check-inline">
+                <input class="form-check-input" type="checkbox" id="long" value="long"> Long term relationship
+            </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="summary" class="label">Your summary</label>
+        <textarea class="form-control" id="summary" rows="10"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="picture" class="label">Picture</label>
+        <input type="file" class="form-control-file" id="picture">
+      </div> -->
+      <button type="submit" class="btn btn-danger">Submit</button>
+    </form>
+</div>
+{% endblock %}
