@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+"""
+This script is used to add some random coordinate to the user.
+Coordinates are get using a website and then save in a file.
+"""
+
 import json
 import random
 
