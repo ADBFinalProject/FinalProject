@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block anchor %}
-<li><a href="/login">Sign in</a></li>
+<li><a href="logout/">Log out</a></li>
 {% endblock %}
 
 
@@ -10,5 +10,6 @@
 <link rel="stylesheet" href="{% static 'style/css/index.css' %}">
 
 <div id="home">
+    {{ user.description }}
 </div>
 {% endblock %}
