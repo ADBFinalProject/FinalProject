@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from neomodel import config
 from django.core.mail import send_mail
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -75,13 +76,16 @@ WSGI_APPLICATION = 'dating_app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+db_username = 'admin'
+db_password = 'password'
+config.DATABASE_URL = 'bolt://'+db_username+':'+db_password+'@localhost:7687'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
