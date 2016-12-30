@@ -2,35 +2,31 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
-from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from django.core.urlresolvers import reverse
+from .models import User
 
 
 def index(request):
-    return render(request, 'website/index.html', {})
+        return render(request, 'website/index.html', {})
 
 
 @login_required
 def home(request):
-    res = reverse('website/home.html', args=[request.user.username])
-    print res, "looolooooolool"
-    return HttpResponseRedirect()
+    return render(request, 'website/home.html', {})
 
 
 def logout(request):
-    print("hell yes")
     auth.logout(request)
     return redirect('/')
 
 
 def log_in(request):
-    return render(request, 'website/login.html', {})
+        return render(request, 'website/login.html', {})
 
 
 def signup(request):
-    return render(request, 'website/signup.html', {})
+        return render(request, 'website/signup.html', {})
 
 
 class UserFormView(View):
@@ -53,9 +49,13 @@ class UserFormView(View):
             # Cleaning and normalizing data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            mail = form.cleaned_data['email']
             user.set_password(password)
             user.save()
-
+            new_usr = User(username=username,
+                           password=password,
+                           email=mail)
+            new_usr.save()
             # returns User objects if the credential are correct
             user = authenticate(username=username, password=password)
 

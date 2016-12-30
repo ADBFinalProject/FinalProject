@@ -9,3 +9,6 @@ virtualenv
 *.ipynb_check
 *.pyc
 .idea
+
+# password files
+/application/dating_app/dating_app/passwords.py
