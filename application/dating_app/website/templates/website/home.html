@@ -7,9 +7,55 @@
 
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'style/css/index.css' %}">
+<link rel="stylesheet" href="{% static 'style/css/home.css' %}">
 
 <div id="home">
-    {{ user.description }}
+    <div id="pictureAndName">
+        <div id="profilePicture">
+            <img id="userPicture" src="{% static 'img/lol.jpg' %}"/> <!-- Find a good image for the logo -->
+        </div>
+        <div id="userBasicInfo">
+            <div id="username">
+                {{ user.username }}
+            </div>
+            <div id="userAge">
+                {{ user.email }}
+                {% if user.gender == "w" %}
+                    , Women
+                {% else %}
+                    , Men
+                {% endif %}
+                , {{ user.sexual_orientation }}
+                , {{ user.looking_for }}
+            </div>
+        </div>
+    </div>
+    <div id="information">
+        <div id="summary">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+        <div id="thinkings">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+        <div id="messaging_conditions">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+        <div id="essentials">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

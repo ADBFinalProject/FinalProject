@@ -9,15 +9,17 @@
         <div id="textField">
             <p>Use your account:</p>
         </div>
-        <div id="nameField">
-            <input class="loginField" type="text" placeholder="Username">
-        </div>
-        <div id="passwordField">
-            <input class="loginField" type="password" placeholder="Password" >
-        </div>
-        <div id="connectButton">
-            <button class="btn btn-danger">Login</button>
-        </div>
+        <form id="login" action="auth/" method="post">{% csrf_token %}
+            <div id="nameField">
+            <input name="username" id="username" class="loginField" type="text" placeholder="Username">
+            </div>
+            <div id="passwordField">
+                <input name="password" id="password" class="loginField" type="password" placeholder="Password" >
+            </div>
+            <div id="connectButton">
+                <button class="btn btn-danger" type="submit" value="login">Login</button>
+            </div>
+        </form>
         <div id="forgottenPassword">
             <a id="loginInstruction">I forgot my password</a>
         </div>

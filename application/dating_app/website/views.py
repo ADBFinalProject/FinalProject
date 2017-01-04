@@ -22,11 +22,23 @@ def logout(request):
 
 
 def log_in(request):
-        return render(request, 'website/login.html', {})
+    return render(request, 'website/login.html', {})
 
+
+def auth_view(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    print username, password
+    user = auth.authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return redirect('website:home')
+    else:
+        return redirect('website:index')
 
 def signup(request):
-        return render(request, 'website/signup.html', {})
+    return render(request, 'website/signup.html', {})
 
 
 class UserFormView(View):

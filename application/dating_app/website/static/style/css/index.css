@@ -12,17 +12,16 @@
 
 div #main_logo{
     display: block;
-    width: 300px;
-    height: 100px;
-    top: 20%;
+    width: 100%;
+    height: 80%;
+    top: 10%;
     left:50%;
-    margin-left: -150px;
+    margin-bottom: 5%;
 }
 
 div #main_logo img{
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: auto;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
 }
 
@@ -34,7 +33,7 @@ div #home{
     position: absolute;
     width: 750px;
     height: 417px;
-    margin-top: -208.5px;
+    margin-top: -20%;
     margin-left: -375px;
 }
 
@@ -47,8 +46,8 @@ div .wrapper{
 
 div #inscription{
     text-align: center;
-    width: 750px;
-    height: 417px;
+    width: 100%;
+    height: 60%;
     clear:left;
 }
 
