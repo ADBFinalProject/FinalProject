@@ -1,0 +1,56 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+
+{% block anchor %}
+<li><a href="../match/">Match</a></li>
+<li><a href="">Search</a></li>
+<li><a href="../home/">My account</a></li>
+<li><a href="../logout/">Log out</a></li>
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/css/search.css' %}">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script src="{% static 'js/match.js' %}"></script>
+<div id="home">
+    <div id="parametersWrapper">
+        <div id="logoParameters">
+            <img id="logo" src="{% static 'img/main_logo.png' %}"/>
+        </div>
+        <div id="parameters">
+            <form id="search" action="../match_result/" method="post">{% csrf_token %}
+                <div id="filtersWrapper">
+                    <div id="filterChoice">
+                        <input name="around" id="around" type="checkbox" checked data-toggle="toggle" data-on="People around me!" data-off="My own filters!">
+                        <div id="searchButton">
+                            <button class="btn btn-primary" type="submit" value="login">Search</button>
+                        </div>
+                    </div>
+                    <div id="personalFilter">
+                        <div class="col-xs-3">
+                            <input class="form-control" name="minAge" id="minAge" type="text" placeholder="Age minimum">
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" name="maxAge" id="maxAge" type="text" placeholder="Age maximum">
+                        </div>
+                        <div class="col-xs-4">
+                            <select multiple class="form-control" name="lookingFor" id="lookingFor">
+                              <option value="sex">Casual sex</option>
+                              <option value="friend">Friends</option>
+                              <option value="short">Short term relationship</option>
+                              <option value="long">Long term relationship</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="results">
+
+    </div>
+</div>
+{% endblock %}

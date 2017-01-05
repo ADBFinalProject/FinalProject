@@ -22,6 +22,11 @@ def my_account(request):
 
 
 @login_required
+def search(request):
+    return render(request, 'website/search.html', {})
+
+
+@login_required
 def match(request):
     return render(request, 'website/match.html', {})
 

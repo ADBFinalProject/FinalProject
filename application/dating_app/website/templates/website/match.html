@@ -3,6 +3,7 @@
 
 {% block anchor %}
 <li><a href="">Match</a></li>
+<li><a href="../search/">Search</a></li>
 <li><a href="../home/">My account</a></li>
 <li><a href="../logout/">Log out</a></li>
 {% endblock %}
@@ -15,39 +16,6 @@
 
 <script src="{% static 'js/match.js' %}"></script>
 <div id="home">
-    <div id="parametersWrapper">
-        <div id="logoParameters">
 
-        </div>
-        <div id="parameters">
-            <form id="search" action="../match_result/" method="post">{% csrf_token %}
-                <div id="filterChoice">
-                    <input name="around" id="around" type="checkbox" checked data-toggle="toggle" data-on="People around me!" data-off="My own filters!">
-                </div>
-                <div id="personalFilter">
-                    <div class="col-xs-3">
-                        <input class="form-control" name="minAge" id="minAge" type="text" placeholder="Age minimum">
-                    </div>
-                    <div class="col-xs-3">
-                        <input class="form-control" name="maxAge" id="maxAge" type="text" placeholder="Age maximum">
-                    </div>
-                    <div class="col-xs-3">
-                        <select multiple class="form-control" name="lookingFor" id="lookingFor">
-                          <option value="sex">Casual sex</option>
-                          <option value="friend">Friends</option>
-                          <option value="short">Short term relationship</option>
-                          <option value="long">Long term relationship</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="connectButton">
-                    <button class="btn btn-primary" type="submit" value="login">Search</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div id="results">
-
-    </div>
 </div>
 {% endblock %}

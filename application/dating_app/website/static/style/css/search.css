@@ -1,0 +1,64 @@
+div #home{
+    display: block;
+    position: absolute;
+    width: 95%;
+    height: 100%;
+    top: 20%;
+    left: 2.5%;
+    background: #eae1e7;
+    }
+
+#logoParameters, #parameters {
+    float: left;
+    height: 100%;
+    }
+
+#logoParameters {
+     width: 40%;
+     background: #911A1F;
+    }
+
+#parameters {
+     width: 60%;
+    }
+
+#parametersWrapper{
+     width: 100%;
+     height: 40%;
+}
+
+#results{
+    width: 100%;
+    height: 60%;
+}
+
+#personalFilter{
+    width: 100%;
+    height: 40%;
+}
+
+#filtersWrapper{
+    width: auto;
+    height: auto;
+}
+
+#filterChoice{
+    text-align: center;
+    margin-top: 5%;
+    width: 100%;
+    height: 60%;
+}
+
+#searchButton{
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+#logo{
+    width: 100%;
+    height: 100%;
+}
+
+#parametersWrapper{
+    margin-bottom: 10%%;
+}
