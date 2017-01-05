@@ -16,6 +16,27 @@ def home(request):
     return render(request, 'website/home.html', {})
 
 
+@login_required
+def my_account(request):
+    return render(request, 'website/my_account.html', {})
+
+
+@login_required
+def match(request):
+    return render(request, 'website/match.html', {})
+
+
+@login_required
+def get_match(request):
+    print request.POST
+    min_age = request.POST.get('minAge', '')
+    max_age = request.POST.get('maxAge', '')
+    people_around = request.POST.get('around', '')
+    looking_for = request.POST.getlist('lookingFor', '')
+    print min_age, max_age, looking_for, people_around
+    return redirect('website:home')
+
+
 def logout(request):
     auth.logout(request)
     return redirect('/')
@@ -36,6 +57,7 @@ def auth_view(request):
             return redirect('website:home')
     else:
         return redirect('website:index')
+
 
 def signup(request):
     return render(request, 'website/signup.html', {})

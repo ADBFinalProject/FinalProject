@@ -21,7 +21,9 @@ urlpatterns = [
     url(r'', include('website.urls')),
     url(r'^login/', include('website.urls')),
     url(r'^signup/', include('website.urls')),
-    url(r'^auth/', include('website.urls')),
+    url(r'^profile/match/', include('website.urls')),
+    url(r'^profile/auth/', include('website.urls')),
+    url(r'^profile/match_result/', include('website.urls')),
     url(r'^profile/home/', include('website.urls')),
-    url(r'^profile/home/logout/', include('website.urls')),
+    url(r'^profile/logout/', include('website.urls')),
 ]

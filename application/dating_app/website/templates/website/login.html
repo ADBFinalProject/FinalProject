@@ -9,9 +9,9 @@
         <div id="textField">
             <p>Use your account:</p>
         </div>
-        <form id="login" action="auth/" method="post">{% csrf_token %}
+        <form id="login" action="profile/auth/" method="post">{% csrf_token %}
             <div id="nameField">
-            <input name="username" id="username" class="loginField" type="text" placeholder="Username">
+                <input name="username" id="username" class="loginField" type="text" placeholder="Username">
             </div>
             <div id="passwordField">
                 <input name="password" id="password" class="loginField" type="password" placeholder="Password" >
