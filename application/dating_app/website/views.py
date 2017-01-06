@@ -5,7 +5,7 @@ from django.views.generic import View
 from .forms import UserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from .models import User, Dater
+from .models import Dater
 
 
 def index(request):
@@ -40,7 +40,7 @@ def get_match(request):
     looking_for = request.POST.getlist('lookingFor', '__empty__')
     if request.method == "POST":
         if people_around == "off":
-            users = Dater.objects.all().exclude(username=request.user.username, is_superuser=True)
+            users = get_users_basic_filter(request)
             if isinstance(min_age, int):
                 users = users.filter(age__gte=min_age)
                 request.session['min_age'] = min_age
@@ -63,6 +63,7 @@ def get_match(request):
         else:
             return redirect('website:index') # Add neo4J request here
     users = get_user_from_sessions(request)
+    print users
     paginator = Paginator(users, 2)  # Show 2 contacts per page
     page = request.GET.get('page')
     try:
@@ -76,7 +77,7 @@ def get_match(request):
 
 
 def get_user_from_sessions(request):
-    users = Dater.objects.all().exclude(username=request.user.username, is_superuser=True)
+    users = get_users_basic_filter(request)
     users = users.filter(age__gte=request.session['min_age'])
     users = users.filter(age__lte=request.session['max_age'])
     final_users = set()  # Awful hack to solve one day...
@@ -85,6 +86,23 @@ def get_user_from_sessions(request):
             if item in request.session['looking_for']:
                     final_users.add(user)
     users = list(final_users)
+    return users
+
+
+def get_users_basic_filter(request):
+    gender = request.user.gender
+    sexual_orientation = request.user.sexual_orientation
+    users = Dater.objects.all().exclude(username=request.user.username).exclude(is_superuser=True)
+    if gender == "m":
+        if sexual_orientation == "straight":
+            users = users.filter(gender="w")
+        if sexual_orientation == "gay":
+            users = users.filter(gender="m")
+    else:
+        if sexual_orientation == "straight":
+            users = users.filter(gender="m")
+        if sexual_orientation == "gay":
+            users = users.filter(gender="w")
     return users
 
 
@@ -125,20 +143,15 @@ class UserFormView(View):
     # Process the form
     def post(self, request):
         form = self.form_class(request.POST)
-        print form
         if form.is_valid():
-            print "is valid"
             user = form.save(commit=False)
             # Cleaning and normalizing data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            mail = form.cleaned_data['email']
             user.set_password(password)
+            user.latitude = 24.8047
+            user.longitude = 120.9714
             user.save()
-            new_usr = User(username=username,
-                           password=password,
-                           email=mail)
-            new_usr.save()
             # returns User objects if the credential are correct
             user = authenticate(username=username, password=password)
 
