@@ -38,23 +38,31 @@ def get_match(request):
     max_age = request.POST.get('maxAge', '')
     people_around = request.POST.get('around', 'off')
     looking_for = request.POST.getlist('lookingFor', '__empty__')
-    if people_around == "off":
-        print min_age, max_age, people_around, looking_for
-        users = Dater.objects.all().exclude(username=request.user.username, is_superuser=True)
-        if isinstance(min_age, int):
-            users = users.filter(age__lte=min_age)
-        if isinstance(max_age, int):
-            users = users.filter(age__lte=max_age)
-        if looking_for != "__empty__":
-            final_users = set()  # Awful hack to solve one day...
-            for user in users:
-                for item in user.looking_for:
-                    if item in looking_for:
-                        final_users.add(user)
-            users = list(final_users)
-    else:
-        return redirect('website:index') # Add neo4J request here
-    print users
+    if request.method == "POST":
+        if people_around == "off":
+            users = Dater.objects.all().exclude(username=request.user.username, is_superuser=True)
+            if isinstance(min_age, int):
+                users = users.filter(age__gte=min_age)
+                request.session['min_age'] = min_age
+            else:
+                request.session['min_age'] = 0
+            if isinstance(max_age, int):
+                users = users.filter(age__lte=max_age)
+            else:
+                request.session['max_age'] = 99
+            if looking_for != "__empty__":
+                final_users = set()  # Awful hack to solve one day...
+                for user in users:
+                    for item in user.looking_for:
+                        if item in looking_for:
+                            final_users.add(user)
+                users = list(final_users)
+                request.session['looking_for'] = looking_for
+            else:
+                request.session['looking_for'] = ['sex', 'friend', 'short_term', 'long_term']
+        else:
+            return redirect('website:index') # Add neo4J request here
+    users = get_user_from_sessions(request)
     paginator = Paginator(users, 2)  # Show 2 contacts per page
     page = request.GET.get('page')
     try:
@@ -65,6 +73,19 @@ def get_match(request):
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
     return render(request, 'website/search.html', {'users': users})
+
+
+def get_user_from_sessions(request):
+    users = Dater.objects.all().exclude(username=request.user.username, is_superuser=True)
+    users = users.filter(age__gte=request.session['min_age'])
+    users = users.filter(age__lte=request.session['max_age'])
+    final_users = set()  # Awful hack to solve one day...
+    for user in users:
+        for item in user.looking_for:
+            if item in request.session['looking_for']:
+                    final_users.add(user)
+    users = list(final_users)
+    return users
 
 
 def logout(request):
