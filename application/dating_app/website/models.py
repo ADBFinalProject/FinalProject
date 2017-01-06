@@ -14,6 +14,7 @@ class Dater(AbstractUser):
     sexual_orientation = models.CharField(max_length=10, choices=sexual_orientation_choices)
     looking_for_choices = (("sex", "Casual sex"), ("friend", "Friend"), ("short_term", "Short term relationship"),
                            ("long_term", "Long term relationship"))
+    age = models.CharField(max_length=2)
     looking_for = MultiSelectField(choices=looking_for_choices)
     AbstractUser.email = models.EmailField()
 

@@ -1,0 +1,9 @@
+div #home{
+    display: block;
+    position: absolute;
+    width: 95%;
+    height: 100%;
+    top: 20%;
+    left: 2.5%;
+    background: #eae1e7;
+    }

@@ -2,7 +2,15 @@
 {% load staticfiles %}
 
 {% block anchor %}
-<li><a href="/login">Sign in</a></li>
+
+{% if user.is_authenticated %}
+    <li><a href="profile/match/">Match</a></li>
+    <li><a href="profile/search/">Search</a></li>
+    <li><a href="profile/home/">My account</a></li>
+    <li><a href="profile/logout/">Log out</a></li>
+{% else %}
+  <li><a href="/login">Sign in</a></li>
+{% endif %}
 {% endblock %}
 
 

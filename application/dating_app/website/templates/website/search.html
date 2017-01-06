@@ -14,6 +14,8 @@
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
+
+
 <script src="{% static 'js/match.js' %}"></script>
 <div id="home">
     <div id="parametersWrapper">
@@ -40,8 +42,8 @@
                             <select multiple class="form-control" name="lookingFor" id="lookingFor">
                               <option value="sex">Casual sex</option>
                               <option value="friend">Friends</option>
-                              <option value="short">Short term relationship</option>
-                              <option value="long">Long term relationship</option>
+                              <option value="short_term">Short term relationship</option>
+                              <option value="long_term">Long term relationship</option>
                             </select>
                         </div>
                     </div>
@@ -50,7 +52,33 @@
         </div>
     </div>
     <div id="results">
+        {% for user in users %}
+            <div class="card">
+              <img src="{% static 'img/img_avatar.png' %}" alt="Avatar" style="width:100%">
+              <div class="container">
+                <h4><b>{{user.username}} {{user.age}}</b></h4>
+                <p>{{user.looking_for}}</p>
+                <p>{{user.sexual_orientation}}</p>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="paginator">
+        <div class="pagination">
+            <span class="step-links">
+                {% if users.has_previous %}
+                    <a href="?page={{ users.previous_page_number }}">previous</a>
+                {% endif %}
 
+                <span class="current">
+                    Page {{ users.number }} of {{ users.paginator.num_pages }}.
+                </span>
+
+                {% if users.has_next %}
+                    <a href="?page={{ users.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 </div>
 {% endblock %}

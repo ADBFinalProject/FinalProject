@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from .models import User
+from .models import User, Dater
 
 
 def index(request):
@@ -33,13 +34,37 @@ def match(request):
 
 @login_required
 def get_match(request):
-    print request.POST
     min_age = request.POST.get('minAge', '')
     max_age = request.POST.get('maxAge', '')
-    people_around = request.POST.get('around', '')
-    looking_for = request.POST.getlist('lookingFor', '')
-    print min_age, max_age, looking_for, people_around
-    return redirect('website:home')
+    people_around = request.POST.get('around', 'off')
+    looking_for = request.POST.getlist('lookingFor', '__empty__')
+    if people_around == "off":
+        print min_age, max_age, people_around, looking_for
+        users = Dater.objects.all().exclude(username=request.user.username, is_superuser=True)
+        if isinstance(min_age, int):
+            users = users.filter(age__lte=min_age)
+        if isinstance(max_age, int):
+            users = users.filter(age__lte=max_age)
+        if looking_for != "__empty__":
+            final_users = set()  # Awful hack to solve one day...
+            for user in users:
+                for item in user.looking_for:
+                    if item in looking_for:
+                        final_users.add(user)
+            users = list(final_users)
+    else:
+        return redirect('website:index') # Add neo4J request here
+    print users
+    paginator = Paginator(users, 2)  # Show 2 contacts per page
+    page = request.GET.get('page')
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+    return render(request, 'website/search.html', {'users': users})
 
 
 def logout(request):
@@ -54,7 +79,6 @@ def log_in(request):
 def auth_view(request):
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
-    print username, password
     user = auth.authenticate(username=username, password=password)
     if user is not None:
         if user.is_active:
@@ -80,11 +104,10 @@ class UserFormView(View):
     # Process the form
     def post(self, request):
         form = self.form_class(request.POST)
-
+        print form
         if form.is_valid():
+            print "is valid"
             user = form.save(commit=False)
-            print user.username
-            print user.description
             # Cleaning and normalizing data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
