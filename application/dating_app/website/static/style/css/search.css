@@ -3,7 +3,7 @@ div #home{
     position: absolute;
     width: auto;
     height: auto;
-    top: 20%;
+    top: 15%;
     left: 2.5%;
     right: 2.5%;
     background: #eae1e7;
@@ -16,21 +16,18 @@ div #home{
 
 #logoParameters {
      width: 40%;
-     background: #911A1F;
+     background: #eae1e7;
     }
 
 #parameters {
      width: 60%;
+
     }
 
 #parametersWrapper{
      width: 100%;
      height: auto;
-}
-
-#results{
-    width: auto;
-    height: auto;
+    float: left;
 }
 
 #personalFilter{
@@ -60,22 +57,23 @@ div #home{
     height: 100%;
 }
 
-#parametersWrapper{
-    margin-bottom: 10%;
-}
-
 #results{
-    margin-top: 10%;
-    width: auto;
+    margin-top:20px;
+    width: 100%;
     height: auto;
+
+    float: left;
 }
 
 .card {
-    margin-left: 2.5%;
-    width: 20%;
-    height: auto;
+    margin-left: 5%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 90%;
+    height:inherit;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
+    float: left;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -87,13 +85,31 @@ div #home{
 
 
 .container {
-    width: auto;
-    height: auto;
+    margin-left: 0.5%;
+    width: 84.5%;
+    height: 100%;
     background: white;
     padding: 2px 16px;
-    margin-bottom: 5%;
+    float: right;
 }
 
 #paginator{
     text-align: center;
 }
+
+.searchuserimg{
+    width: 15%;
+    float: left;
+}
+
+.container div{
+    font-family: Georgia;
+    height: 40px;
+    border: 1px solid #000000;
+    margin-top: 10px;
+    padding-top: 7px;
+    padding-left: 10px;
+    font-size: 35px;
+    color: #2e6da4;
+}
+

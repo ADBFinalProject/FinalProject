@@ -17,6 +17,33 @@
 
 
 <script src="{% static 'js/match.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $(".container").css("height",$(".searchuserimg").css("height"));
+    })
+    $(window).resize(function () {
+        var h = $(".card").css("height");
+        var w = $(".card").css("width");
+        var h1 = parseInt(h.slice(0,h.length-2));
+        var w1 = parseInt(w.slice(0,w.length-2))
+        if(w1 * 0.15 < 210){
+            $(".searchuserimg").css("width","210px");
+            $(".searchuserimg").css("height","210px");
+            $(".container").css("height","210px");
+            w1 = parseInt(w.slice(0,w.length-2)) *0.95 - 210;
+            $(".container").css("width",w1 + "px");
+            $(".card").css("height","210px");
+        }else{
+
+            $(".searchuserimg").css("width","15%");
+            var t = $(".searchuserimg").css("width");
+            $(".searchuserimg").css("height",t);
+            $(".container").css("width","84.5%");
+            $(".container").css("height",t);
+            $(".card").css("height","inherit");
+        }
+    })
+</script>
 <div id="home">
     <div id="parametersWrapper">
         <div id="logoParameters">
@@ -53,12 +80,13 @@
     </div>
     <div id="results">
         {% for user in users %}
-            <div class="card">
-              <img src="{% static 'img/img_avatar.png' %}" alt="Avatar" style="width:100%">
+            <div class="card" >
+              <img class="searchuserimg" src="{% static 'img/img_avatar.png' %}" alt="Avatar">
               <div class="container">
-                <h4><b>{{user.username}} {{user.age}}</b></h4>
-                <p>{{user.looking_for}}</p>
-                <p>{{user.sexual_orientation}}</p>
+                <div class="name"><p>{{user.username}}</p></div>
+                  <div class="age"><p>{{user.age}}</p></div>
+                  <div class="lookingfor"><p>{{user.looking_for}}</p></div>
+                  <div class="orientation"><p>{{user.sexual_orientation}}</p></div>
               </div>
             </div>
         {% endfor %}

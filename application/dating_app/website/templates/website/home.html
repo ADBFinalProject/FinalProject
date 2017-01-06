@@ -11,7 +11,24 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'style/css/home.css' %}">
-
+<script>
+    $(document).ready(function () {
+        var h = $("#userPicture").css("height");
+        $("#pictureAndName").css("height",h);
+    })
+    $(window).resize(function () {
+        var w = $("#main_container").css("width");
+        var h = $("#userPicture").css("height");
+        $("#pictureAndName").css("height",h);
+        var w1 = parseInt(w.slice(0,w.length-2))
+        if(w1 < 960){
+            $("#home").css("width","960px");
+        }else{
+            $("#home").css("width","90%");
+        }
+         location.reload();
+    })
+</script>
 <div id="home">
     <div id="pictureAndName">
         <div id="profilePicture">

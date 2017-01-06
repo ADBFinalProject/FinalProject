@@ -4,47 +4,73 @@ div #home{
     top: 10%;
     display: block;
     width: 90%;
-    height: 90%;
+    height: inherit;
     position: absolute;
 }
 
 #pictureAndName{
     width: 100%;
-    height: 40%;
+    border: 1px solid #ffffff;
 }
 
 #profilePicture{
     float: left;
     width: 20%;
     height: 100%;
+    border: 1px solid #ffff00;
 }
 
 #userBasicInfo{
     color: white;
     text-align: center;
     margin-top: 5%;
-    margin-left:20%;
-    width: 40%;
+    margin-left:3%;
+    width: 60%;
     height: 50%;
+    border: 1px solid #ffffff;
+    float: left;
+    font-family: Georgia;
 }
 
 #userPicture{
     width:100%;
-    height:100%;
 }
 
 #userAge{
+    padding-top: 30px;
     width:100%;
     height:50%;
+    font-size: 17px;
+    border: 1px solid #ffffff;
 }
 
 #information{
-    height: 100%;
     width: 100%;
+    height: inherit;
+    border: 1px solid #ffffff;
+    font-family: Georgia;
+    color: #ffffff;
 }
 
 #username{
+    padding-top: 5%;
     width:100%;
     height:50%;
+    font-size: 35px;
+    border: 1px solid #ffff00;
 }
 
+#summary{
+    margin-top: 3%;
+}
+
+#information div h3{
+    font-size: 30px;
+    margin-left: 3%;
+}
+#information div p{
+    font-size: 20px;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    margin-right: 5%;
+}
