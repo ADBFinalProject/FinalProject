@@ -30,7 +30,7 @@ Now let's launch the application:
 
 ```
 cd application/dating_app
-python manage.py migrate
+python manage.py migrate --run-syncdb
 python manage.py createsuperuser
 # Follow the instruction
 ```
