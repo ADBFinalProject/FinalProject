@@ -29,19 +29,68 @@
                 $("#filterandsearch").css("margin-top","5%");
             }
         });
+        var hw = $(window).width();
+        console.log(hw);
+        if(hw < 1200){
+            $("#home").css("width","1130px");
+        }else{
+            $("#home").css("width","auto");
+        }
+        var h = $(".card").css("height");
+        var w = $(".card").css("width");
+        var h1 = parseInt(h.slice(0,h.length-2));
+        var w1 = parseInt(w.slice(0,w.length-2));
+        if(w1 * 0.15 < 230){
+            $(".searchuserimg").css("width","230px");
+            $(".searchuserimg").css("height","230px");
+            $(".container").css("height","230px");
+            w1 = parseInt(w.slice(0,w.length-2)) *0.95 - 230;
+            $(".container").css("width",w1 + "px");
+            $(".card").css("height","230px");
+        }else{
+            $(".searchuserimg").css("width","15%");
+            var t = $(".searchuserimg").css("width");
+            $(".searchuserimg").css("height",t);
+            $(".container").css("width","84.5%");
+            $(".container").css("height",t);
+            $(".card").css("height","inherit");
+        }
+        $(".btn.btn-primary.detail").click(function(event){
+            alert(this);
+            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            alert(s);
+            window.location.replace("../"+s);
+            event.preventDefault();
+            //window.location.replace("http://stackoverflow.com");
+        })
+        /*$(".detail").bind('click',function(event){
+            alert(this);
+            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            alert(s);
+            window.location.replace("../"+s);
+            event.preventDefault();
+            //window.location.replace("http://stackoverflow.com");
+        })*/
     });
     $(window).resize(function () {
+        var hw = $(window).width();
+        console.log(hw);
+        if(hw < 1200){
+            $("#home").css("width","1130px");
+        }else{
+            $("#home").css("width","auto");
+        }
         var h = $(".card").css("height");
         var w = $(".card").css("width");
         var h1 = parseInt(h.slice(0,h.length-2));
         var w1 = parseInt(w.slice(0,w.length-2))
-        if(w1 * 0.15 < 210){
-            $(".searchuserimg").css("width","210px");
-            $(".searchuserimg").css("height","210px");
-            $(".container").css("height","210px");
-            w1 = parseInt(w.slice(0,w.length-2)) *0.95 - 210;
+        if(w1 * 0.15 < 230){
+            $(".searchuserimg").css("width","230px");
+            $(".searchuserimg").css("height","230px");
+            $(".container").css("height","230px");
+            w1 = parseInt(w.slice(0,w.length-2)) *0.95 - 230;
             $(".container").css("width",w1 + "px");
-            $(".card").css("height","210px");
+            $(".card").css("height","230px");
         }else{
             $(".searchuserimg").css("width","15%");
             var t = $(".searchuserimg").css("width");
@@ -102,33 +151,31 @@
             <div class="card" >
               <img class="searchuserimg" src="{% static 'img/img_avatar.png' %}" alt="Avatar">
               <div class="container">
-                  <div class="name"><p>{{user.username}}</p></div>
-                  <div class="age"><p>{{user.age}}</p></div>
-                  <div class="lookingfor"><p>{{user.looking_for}}</p></div>
-                  <div class="orientation"><p>{{user.sexual_orientation}}</p></div>
-                  <div class="description"><p>description description description description description description description description description description description description description description description description description description </p></div>
-                  <button class="btn btn-primary" type="submit" value="login" id="detail">Details</button>
-                  <button class="btn btn-primary" type="submit" value="login" id="follow">Follow!</button>
+                  <div class="name"><span class="tit">Name:  </span><span class="gfdb">{{user.username}}</span></div>
+                  <div class="age"><span class="tit">Age:  </span><span class="gfdb">{{user.age}}</span></div>
+                  <div class="lookingfor"><span class="tit">LookingFor:  </span><span class="gfdb">{{user.looking_for}}</span></div>
+                  <div class="orientation"><span class="tit">Sex ori:  </span><span class="gfdb">{{user.sexual_orientation}}</span></div>
+                  <div class="description"><p>{{user.summary}}</p></div>
+                  <a href="../{{user.username}}">Details</a>
+                  <button class="btn btn-primary detail" type="submit" value="login" href="../{{user.username}}" data-target="../{{user.username}}" onclick="myfunc()">Details</button>
+                  <button class="btn btn-primary follow" type="submit" value="login" >Follow!</button>
               </div>
             </div>
         {% endfor %}
     </div>
     {% if users %}
     <div id="paginator">
+        <script>
+            var host = window.location.search;
+            //alert(window.location.href);
+            //alert(window.location.search);
+        </script>
         <div class="pagination">
-            <span class="step-links">
-                {% if users.has_previous %}
-                    <a href="?page={{ users.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ users.number }} of {{ users.paginator.num_pages }}.
-                </span>
-
-                {% if users.has_next %}
-                    <a href="?page={{ users.next_page_number }}">next</a>
-                {% endif %}
-            </span>
+            <ul class="pagination">
+                {% for i in users.paginator.page_range %}
+                    <li><a href="?page={{ i }}">{{i}}</a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
     {% endif %}

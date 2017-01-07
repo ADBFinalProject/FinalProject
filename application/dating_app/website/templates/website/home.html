@@ -56,27 +56,63 @@
     </div>
     <div id="information">
         <div id="summary">
-            <h3>Description</h3>
+            <h3>Summary</h3>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+                {% if user.summary %}
+                    {{user.summary}}
+                {% else %}
+                    God! There's a super LAAAAAZZZZY guy......
+                {% endif %}
             </p>
         </div>
         <div id="thinkings">
-            <h3>Description</h3>
+            <h3>thinkings</h3><div></div>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+                {% if user.thinkings %}
+                    {{user.thinkings}}
+                {% else %}
+                    God! There's a super LAAAAAZZZZY guy......
+                {% endif %}
             </p>
         </div>
-        <div id="messaging_conditions">
-            <h3>Description</h3>
+        <div id="entertainement">
+            <h3>entertainement</h3>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+                {% if user.entertainement %}
+                    {{user.entertainement}}
+                {% else %}
+                    God! There's a super LAAAAAZZZZY guy......
+                {% endif %}
+            </p>
+        </div>
+        <div id="we_behavior">
+            <h3>We behavior</h3>
+            <p>
+                {% if user.behavior %}
+                    {{user.behavior}}
+                {% else %}
+                    God! There's a super LAAAAAZZZZY guy......
+                {% endif %}
             </p>
         </div>
         <div id="essentials">
-            <h3>Description</h3>
+            <h3>essentials</h3>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+                {% if user.essentials %}
+                    {{user.essentials}}
+                {% else %}
+                    God! There's a super LAAAAAZZZZY guy......
+                {% endif %}
+            </p>
+        </div>
+        <div id="messaging_conditions">
+            <h3>Messaging conditions</h3>
+            <p>
+                {% if user.messaging_conditions %}
+                    {{user.messaging_conditions}}
+                {% else %}
+                    God! There's a super LAAAAAZZZZY guy......
+                {% endif %}
             </p>
         </div>
     </div>

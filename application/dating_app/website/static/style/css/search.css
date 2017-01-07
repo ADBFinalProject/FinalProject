@@ -48,7 +48,7 @@ div #home{
 }
 
 #searchButton{
-
+    margin-left:20%;
     float: left;
 }
 
@@ -84,19 +84,19 @@ div #home{
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 30px 0 rgba(0,0,0,0.2);
 }
 
 /* Add some padding inside the card container */
 
 
 .container {
-    margin-left: 0.5%;
-    width: 84.5%;
+    margin-left: 0.05%;
+    width: 84.95%;
     height: 100%;
     background: white;
     padding: 2px 16px;
-    float: right;
+    float: left;
 }
 
 #paginator{
@@ -108,53 +108,65 @@ div #home{
     float: left;
 }
 
-.name,.age,.lookingfor,.orientation{
+.gfdb{
+    margin-left: 10px;
+    float: left;
+    font-family: Georgia;
+    font-size: 20px;
+    color: #2e6da4;
+}
 
-    border-radius:10px;
-    border: 1px solid #000000;
+.tit{
+    float: left;
+    font-family: Georgia;
+    font-size: 30px;
+    color: #2e6da4;
+}
+
+.name,.age,.lookingfor,.orientation{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 
-    width: 47%;
+    width: 48%;
     height: 40px;
 
     margin-right: 2%;
-    margin-top: 7px;
-    padding-top: 7px;
-    padding-left: 10px;
+    margin-top: 0.5%;
+    padding-top: 0.5%;
+    padding-left: 0.5%;
 
-    font-family: Georgia;
-    font-size: 35px;
-    color: #2e6da4;
 
-    float: right;
+
+    float: left;
 }
 
 .description{
-    border-radius:10px;
-    border: 1px solid #000000;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.1);
 
     font-family: Georgia;
-    font-size: 35px;
+    font-size: 20px;
     color: #2e6da4;
 
     margin-right: 2%;
-    margin-top: 7px;
-    padding-top: 7px;
-    padding-left: 10px;
+    margin-top: 0.5%;
+    padding-top: 0.5%;
+    padding-left: 0.5%;
 
-    width: 96%;
+    width: 98%;
     height: 80px;
 
-    float: right;
+    float: left;
     overflow-y:scroll;
     word-wrap:break-word;
     margin-bottom: 10px;
 }
 
-#follow,#detail{
+.btn.btn-primary.follow,.btn.btn-primary.detail{
     margin-bottom: 1px;
-    margin-right: 2%;
+    margin-right: 0.2%;
     width: 23%;
     float: right;
+}
+
+#follow{
+    margin-right: 1%;
 }
