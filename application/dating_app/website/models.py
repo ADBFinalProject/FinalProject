@@ -27,3 +27,10 @@ class Dater(AbstractUser):
     def __str__(self):
         return self.username
 
+class Location(models.Model):
+    name_of_location = models.TextField()
+    latitude = models.DecimalField(max_digits=8, decimal_places=5)
+    longitude = models.DecimalField(max_digits=8, decimal_places=5)
+    
+    def __str__(self):
+        return self.name_of_location
