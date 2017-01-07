@@ -10,7 +10,7 @@ class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
                                                              'type': 'password',
                                                              'placeholder': 'Enter your password'}))
-    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control col-xs-2'}))
+    summary = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control col-xs-2'}))
     age = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your age'}))
     gender = forms.Select()
     sexual_orientation = forms.Select()
@@ -21,4 +21,4 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = models.Dater
-        fields = ['username', 'email', 'password', 'description', 'age', 'gender', 'sexual_orientation', 'looking_for']
+        fields = ['username', 'email', 'password', 'summary', 'age', 'gender', 'sexual_orientation', 'looking_for']

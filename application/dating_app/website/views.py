@@ -38,6 +38,7 @@ def get_match(request):
     max_age = request.POST.get('maxAge', '')
     people_around = request.POST.get('around', 'off')
     looking_for = request.POST.getlist('lookingFor', '__empty__')
+    print min_age, max_age, people_around, looking_for
     if request.method == "POST":
         if people_around == "off":
             users = get_users_basic_filter(request)
@@ -63,8 +64,7 @@ def get_match(request):
         else:
             return redirect('website:index') # Add neo4J request here
     users = get_user_from_sessions(request)
-    print users
-    paginator = Paginator(users, 2)  # Show 2 contacts per page
+    paginator = Paginator(users, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:
         users = paginator.page(page)
