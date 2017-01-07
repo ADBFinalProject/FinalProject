@@ -41,21 +41,13 @@ def match(request):
 
 @login_required
 def get_match(request):
-    if request.POST.get('minAge', '') == '':
-        min_age = '0'
-    else:
-        min_age = request.POST.get('minAge', '')
-    
-    if request.POST.get('maxAge', '') == '':
-        max_age = '99'
-    else:
-        max_age = request.POST.get('maxAge', '')
-    
+    min_age = request.POST.get('minAge', '')
+    max_age = request.POST.get('maxAge', '')
     people_around = request.POST.get('around', 'off')
     looking_for = request.POST.getlist('lookingFor', '__empty__')
-    
     if request.method == "POST":
-        if people_around == "off":
+        request.session['people_around'] = people_around
+        if people_around == "off":  # Own filter
             users = get_users_basic_filter(request)
             if isinstance(min_age, int):
                 users = users.filter(age__gte=min_age)
@@ -76,61 +68,13 @@ def get_match(request):
                 request.session['looking_for'] = looking_for
             else:
                 request.session['looking_for'] = ['sex', 'friend', 'short_term', 'long_term']
-        else:
-            # search people_around
-            # Add neo4J request here
-            # NOT finished yet, need to convert returned user to Dater format
-            if request.user.gender == 'm' or request.user.gender == 'Men':
-                if request.user.sexual_orientation == 'straight' or request.user.sexual_orientation == 'Straight':
-                    looking_for_MorW = 'w'
-                else:
-                    looking_for_MorW = 'm'
-            else:
-                if request.user.sexual_orientation == 'straight' or request.user.sexual_orientation == 'Straight':
-                    looking_for_MorW = 'm'
-                else:
-                    looking_for_MorW = 'w'
-            
-            limit = '100'
-            cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
-                  'OPTIONAL MATCH (b:user) ' \
-                  'WHERE not a=b and b.age > %d and b.age < %d and b.gender = \'%s\' ' \
-                  'RETURN b , distance(point(a), point(b)) as dist ' \
-                  'ORDER BY dist ' \
-                  'LIMIT %s ' \
-                  % (request.user.username, int(min_age), int(max_age), looking_for_MorW, limit)
-            
-            if request.user.sexual_orientation == 'bisexual' or request.user.sexual_orientation == 'Bisexual':
-                cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
-                      'OPTIONAL MATCH (b:user) ' \
-                      'WHERE not a=b and b.age > %d and b.age < %d ' \
-                      'RETURN b.user_id as username, distance(point(a), point(b)) as dist ' \
-                      'ORDER BY dist ' \
-                      'LIMIT %s ' \
-                      % (request.user.username, int(min_age), int(max_age), limit)
-
-            users_neo4j = db.cypher_query(cmd)
-            all_dater = Dater.objects.all()
-            final_user_list = []
-            for user_neo4j in users_neo4j[0]:
-                for user_sql in all_dater:
-                    if user_sql.username == user_neo4j[0]:
-                        #print user_sql.username
-                        final_user_list.append(user_sql)
-                        break
-                        
-            paginator = Paginator(final_user_list, 10)  # Show 10 contacts per page
-            page = request.GET.get('page')
-            try:
-                final_user_list = paginator.page(page)
-            except PageNotAnInteger:
-                # If page is not an integer, deliver first page.
-                final_user_list = paginator.page(1)
-            except EmptyPage:
-                final_user_list = paginator.page(paginator.num_pages)
-                
-            return render(request, 'website/search.html', {'users': final_user_list})
-    users = get_user_from_sessions(request)
+        else:  # People around
+            limit = '1000'
+            query = build_neo4j_cyper_query(request.user, limit)
+            users = get_user_from_query(query)
+            request.session['people_around'] = people_around
+    else:
+        users = get_user_from_sessions(request)
     paginator = Paginator(users, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:
@@ -143,16 +87,57 @@ def get_match(request):
     return render(request, 'website/search.html', {'users': users})
 
 
+def build_neo4j_cyper_query(user, limit):
+    if user.sexual_orientation == "bisexual":
+        cmd = 'MATCH (a:user {user_id: "%s"}) ' \
+              'OPTIONAL MATCH (b:user) ' \
+              'WHERE not a = b ' \
+              'RETURN b.user_id as username, distance(point(a), point(b)) as dist ' \
+              'ORDER BY dist ' \
+              'LIMIT %s ' % (user.username, limit)
+    elif user.sexual_orientation == "gay":
+        cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
+              'OPTIONAL MATCH (b:user) ' \
+              'WHERE not a = b AND a.gender=b.gender ' \
+              'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
+              'ORDER BY dist ' \
+              'LIMIT %s ' % (user.username, limit)
+    else:
+        cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
+              'OPTIONAL MATCH (b:user) ' \
+              'WHERE not a = b AND NOT a.gender=b.gender ' \
+              'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
+              'ORDER BY dist ' \
+              'LIMIT %s ' % (user.username, limit)
+    return cmd
+
+
+def get_user_from_query(query):
+    users_neo4j = db.cypher_query(query)
+    users_sqlite3 = Dater.objects.all()
+    final_user_list = []
+    for user_neo4j in users_neo4j[0]:
+        for user_sql in users_sqlite3:
+            if user_sql.username == user_neo4j[0]:
+                final_user_list.append(user_sql)
+                break
+    return final_user_list
+
+
 def get_user_from_sessions(request):
-    users = get_users_basic_filter(request)
-    users = users.filter(age__gte=request.session['min_age'])
-    users = users.filter(age__lte=request.session['max_age'])
-    final_users = set()  # Awful hack to solve one day...
-    for user in users:
-        for item in user.looking_for:
-            if item in request.session['looking_for']:
-                    final_users.add(user)
-    users = list(final_users)
+    if request.session['people_around'] == "on":
+        query = build_neo4j_cyper_query(request.user, '1000')
+        users = get_user_from_query(query)
+    else:
+        users = get_users_basic_filter(request)
+        users = users.filter(age__gte=request.session['min_age'])
+        users = users.filter(age__lte=request.session['max_age'])
+        final_users = set()  # Awful hack to solve one day...
+        for user in users:
+            for item in user.looking_for:
+                if item in request.session['looking_for']:
+                        final_users.add(user)
+        users = list(final_users)
     return users
 
 

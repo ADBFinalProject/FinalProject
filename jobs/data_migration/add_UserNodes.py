@@ -1,14 +1,14 @@
 import json
 from py2neo import Graph, Node, Relationship
 
-graph = Graph(password="")  # enter your admin pw here
+graph = Graph(password="ErplEck1692")  # enter your admin pw here
 
-ALL_USR_FILE = '/home/andrew/workspace/usr_data/users_with_coordinate.json'
+ALL_USR_FILE = '../../data/users_with_coordinate.json'
 ALL_USR_json = json.loads(open(ALL_USR_FILE).read())
 
 #add glocation node
 glocations = []
-with open("/home/andrew/workspace/usr_data/location.txt") as glocation_file:
+with open("../../data/location.txt") as glocation_file:
     for glocation in glocation_file:    
         loc = glocation.replace('\n', '').replace('\r','')
         glocations.append(loc)
@@ -51,6 +51,7 @@ txuser = graph.begin()
 for user in ALL_USR_json.keys():
         print user
         coordinate=ALL_USR_json[user]['generated_location'].split()[0]
+        coordinates = ALL_USR_json[user]['generated_location'].split(',')
         user_node = Node('user',
                          user_id=user,
                          orientation=ALL_USR_json[user]['orientation'],
@@ -60,8 +61,8 @@ for user in ALL_USR_json.keys():
                          rel_status=ALL_USR_json[user]['rel_status'],
                          location=ALL_USR_json[user]['generated_location'].split()[1],
                          #generated_location=coordinate,
-                         longitude=coordinate.split(',')[3],
-                         latitude=coordinate.split(',')[1],
+                         longitude=float(coordinates[3]),
+                         latitude=float(coordinates[1]),
                          id=ALL_USR_json[user]['id'],
                          entertainement=ALL_USR_json[user]['entertainement'],
                          we_behavior=ALL_USR_json[user]['we_behavior'],

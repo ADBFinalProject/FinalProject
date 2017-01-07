@@ -1,13 +1,13 @@
 import json
 from py2neo import Graph, Node, Relationship
 
-graph = Graph(password="xm3cl4bjo4")  # enter your admin pw here
+graph = Graph(password="ErplEck1692")  # enter your admin pw here
 
-ALL_USR_FILE = '/home/andrew/workspace/usr_data/users_with_coordinate.json'
+ALL_USR_FILE = '../../data/users_with_coordinate.json'
 ALL_USR_json = json.loads(open(ALL_USR_FILE).read())
 
 glocations = []
-with open("/home/andrew/workspace/usr_data/location.txt") as glocation_file:
+with open("../../data/location.txt") as glocation_file:
     for glocation in glocation_file:
 	loc = glocation.replace('\n', '').replace('\r','')
 	glocations.append(loc)
