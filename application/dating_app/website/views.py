@@ -53,7 +53,7 @@ def get_match(request):
     
     people_around = request.POST.get('around', 'off')
     looking_for = request.POST.getlist('lookingFor', '__empty__')
-    #print min_age, max_age, people_around, looking_for
+    
     if request.method == "POST":
         if people_around == "off":
             users = get_users_basic_filter(request)
@@ -110,9 +110,24 @@ def get_match(request):
                       % (request.user.username, int(min_age), int(max_age), limit)
 
             users_neo4j = db.cypher_query(cmd)
-            print users_neo4j
-            
-            return redirect('website:index')
+            all_dater = Dater.objects.all()
+            final_user_list = []
+            for user_neo4j in users_neo4j[0]:
+                for user_sql in all_dater:
+                    if user_sql.username == user_neo4j[0]:
+                        #print user_sql.username
+                        final_user_list.append(user_sql)
+            paginator = Paginator(final_user_list, 10)  # Show 10 contacts per page
+            page = request.GET.get('page')
+            try:
+                final_user_list = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                final_user_list = paginator.page(1)
+            except EmptyPage:
+                final_user_list = paginator.page(paginator.num_pages)
+                
+            return render(request, 'website/search.html', {'users': final_user_list})
     users = get_user_from_sessions(request)
     paginator = Paginator(users, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
