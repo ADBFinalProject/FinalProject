@@ -117,6 +117,8 @@ def get_match(request):
                     if user_sql.username == user_neo4j[0]:
                         #print user_sql.username
                         final_user_list.append(user_sql)
+                        break
+                        
             paginator = Paginator(final_user_list, 10)  # Show 10 contacts per page
             page = request.GET.get('page')
             try:
