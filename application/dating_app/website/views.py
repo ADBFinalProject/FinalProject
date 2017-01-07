@@ -118,6 +118,7 @@ def get_match(request):
                         #print user_sql.username
                         final_user_list.append(user_sql)
                         break
+                        
             paginator = Paginator(final_user_list, 10)  # Show 10 contacts per page
             page = request.GET.get('page')
             try:
