@@ -107,11 +107,10 @@ def get_match(request):
             user_name_dist_tups = []
             for usr in users_neo4j[0]:
                 print '================================='
-                print type(usr)
+                print 'username = ', usr[0]['user_id']
                 print 'distance (km) = ', usr[1] / 1000
-                user_name_dist_tups.append((usr[0][''], usr[1] / 1000))
-                for att in usr[0]:
-                    print att, usr[0][att]
+                user_name_dist_tups.append((usr[0]['user_id'], usr[1] / 1000))
+                
     
             return redirect('website:index')
     users = get_user_from_sessions(request)
