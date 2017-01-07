@@ -82,7 +82,7 @@ def get_match(request):
             for usr in users_neo4j[0]:
                 print type(usr)
                 for att in usr:
-                    print att['user_id'], att['age']
+                    print att['user_id'], att['age'], att['orientation']
     
             return redirect('website:index')
     users = get_user_from_sessions(request)
@@ -178,7 +178,7 @@ class UserFormView(View):
             looking_for = form.cleaned_data['looking_for']
             mail = form.cleaned_data['email']
             # create a user node in neo4j db
-            cmd = 'CREATE (u:user {user_id:\'%s\', summary:\'%s\', age:%d, gender:\'%s\', sexual_orientation:\'%s\', email:\'%s\'})' \
+            cmd = 'CREATE (u:user {user_id:\'%s\', summary:\'%s\', age:%d, gender:\'%s\', orientation:\'%s\', email:\'%s\'})' \
                   % (username, summary, age, gender, sexual_orientation, mail)
             db.cypher_query(cmd)
             # add the label
