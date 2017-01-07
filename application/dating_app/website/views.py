@@ -53,7 +53,7 @@ def get_match(request):
     
     people_around = request.POST.get('around', 'off')
     looking_for = request.POST.getlist('lookingFor', '__empty__')
-    print min_age, max_age, people_around, looking_for
+    #print min_age, max_age, people_around, looking_for
     if request.method == "POST":
         if people_around == "off":
             users = get_users_basic_filter(request)
@@ -80,7 +80,6 @@ def get_match(request):
             # search people_around
             # Add neo4J request here
             # NOT finished yet, need to convert returned user to Dater format
-            print request.user.gender, request.user.sexual_orientation
             if request.user.gender == 'm' or request.user.gender == 'Men':
                 if request.user.sexual_orientation == 'straight' or request.user.sexual_orientation == 'Straight':
                     looking_for_MorW = 'w'
@@ -105,18 +104,13 @@ def get_match(request):
                 cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
                       'OPTIONAL MATCH (b:user) ' \
                       'WHERE not a=b and b.age > %d and b.age < %d ' \
-                      'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
+                      'RETURN b.user_id as username, distance(point(a), point(b)) as dist ' \
                       'ORDER BY dist ' \
                       'LIMIT %s ' \
                       % (request.user.username, int(min_age), int(max_age), limit)
 
             users_neo4j = db.cypher_query(cmd)
-            user_name_dist_tups = []
-            for usr in users_neo4j[0]:
-                print '================================='
-                print 'username = ', usr[0]
-                print 'distance (km) = ', usr[1] / 1000
-                user_name_dist_tups.append((usr[0], usr[1] / 1000))
+            print users_neo4j
             
             return redirect('website:index')
     users = get_user_from_sessions(request)
