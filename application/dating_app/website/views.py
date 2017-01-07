@@ -105,7 +105,7 @@ def get_match(request):
                 cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
                       'OPTIONAL MATCH (b:user) ' \
                       'WHERE not a=b and b.age > %d and b.age < %d ' \
-                      'RETURN b , distance(point(a), point(b)) as dist ' \
+                      'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
                       'ORDER BY dist ' \
                       'LIMIT %s ' \
                       % (request.user.username, int(min_age), int(max_age), limit)
@@ -114,11 +114,10 @@ def get_match(request):
             user_name_dist_tups = []
             for usr in users_neo4j[0]:
                 print '================================='
-                print 'username = ', usr[0]['user_id']
+                print 'username = ', usr[0]
                 print 'distance (km) = ', usr[1] / 1000
-                user_name_dist_tups.append((usr[0]['user_id'], usr[1] / 1000))
-                
-    
+                user_name_dist_tups.append((usr[0], usr[1] / 1000))
+            
             return redirect('website:index')
     users = get_user_from_sessions(request)
     paginator = Paginator(users, 10)  # Show 10 contacts per page
