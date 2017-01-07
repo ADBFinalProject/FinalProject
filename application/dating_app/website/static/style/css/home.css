@@ -53,6 +53,7 @@ div #home{
     font-family: Georgia;
     color: #2e6da4;
     background-color: #eae1e7;
+    border: 1px solid #ffffff;
 }
 
 #username{
@@ -67,21 +68,31 @@ div #home{
     margin-top: 3%;
 }
 
-#information div{
+#information span{
     margin-bottom: 10px;
 }
 
-#information div h3{
+#information span h3{
     font-size: 30px;
     margin-left: 3%;
 }
-#information div p{
+#information span p{
     font-size: 20px;
     margin-left: 5%;
     margin-bottom: 2%;
     margin-right: 5%;
+    border: 1px solid #ffffff;
 }
 
 #essentials{
     margin-bottom: 20px;
+}
+
+.ui-icon.ui-icon-pencil{
+    border: 1px solid #ffffff;
+    float: left;
+}
+
+.tit{
+    border: 1px solid #ffffff;
 }

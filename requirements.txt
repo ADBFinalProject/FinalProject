@@ -1,5 +1,6 @@
 django~=1.9.0
 django-registration==2.2
 django-multiselectfield==0.1.4
+Pillow
 py2neo
 neomodel
