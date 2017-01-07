@@ -8,8 +8,15 @@ from django.contrib import auth
 from .models import Dater
 from neomodel import db
 
+
 def index(request):
         return render(request, 'website/index.html', {})
+
+
+@login_required
+def get_user_profile(request, username):
+    user = Dater.objects.get(username=username)
+    return render(request, 'website/user_profile.html', {"user":user})
 
 
 @login_required

@@ -1,0 +1,85 @@
+{% extends 'website/base.html' %}
+{% load staticfiles %}
+
+{% block anchor %}
+<li><a href="match/">Match</a></li>
+<li><a href="search/">Search</a></li>
+<li><a href="home/">My account</a></li>
+<li><a href="logout/">Log out</a></li>
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/css/home.css' %}">
+<script>
+    $(document).ready(function () {
+        var h = $("#userPicture").css("height");
+        $("#pictureAndName").css("height",h);
+    })
+    $(window).resize(function () {
+        var w = $("#main_container").css("width");
+        var h = $("#userPicture").css("height");
+        $("#pictureAndName").css("height",h);
+        var w1 = parseInt(w.slice(0,w.length-2))
+        if(w1 < 960){
+            $("#home").css("width","960px");
+        }else{
+            $("#home").css("width","90%");
+        }
+         location.reload();
+    })
+</script>
+<div id="home">
+    <div id="pictureAndName">
+        <div id="profilePicture">
+            <img id="userPicture" src="{% static 'img/lol.jpg' %}"/> <!-- Find a good image for the logo -->
+        </div>
+        <div id="userBasicInfo">
+            <div id="username">
+                {{ user.username }}
+            </div>
+            <div id="userAge">
+                {{ user.email }}
+                {% if user.gender == "w" %}
+                    , Women
+                {% else %}
+                    , Men
+                {% endif %}
+                , {{ user.sexual_orientation }}
+                , {{ user.looking_for }}
+                , {{ user.age }}
+            </div>
+            <div>
+                <button>
+            </div>
+        </div>
+    </div>
+    <div id="information">
+        <div id="summary">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+        <div id="thinkings">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+        <div id="messaging_conditions">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+        <div id="essentials">
+            <h3>Description</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
