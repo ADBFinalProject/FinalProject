@@ -14,13 +14,22 @@
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-
-
-<script src="{% static 'js/match.js' %}"></script>
 <script>
     $(document).ready(function () {
         $(".container").css("height",$(".searchuserimg").css("height"));
-    })
+
+        $("#around").parent().click(function () {
+            var t = $("#around").parent().attr("class");
+            if(t == "toggle btn btn-default off"){
+                $("#personalFilter").css("display","none");
+                $("#filterandsearch").css("margin-top","15%");
+            }
+            if(t == "toggle btn btn-primary"){
+                $("#personalFilter").css("display","block");
+                $("#filterandsearch").css("margin-top","5%");
+            }
+        });
+    });
     $(window).resize(function () {
         var h = $(".card").css("height");
         var w = $(".card").css("width");
@@ -34,7 +43,6 @@
             $(".container").css("width",w1 + "px");
             $(".card").css("height","210px");
         }else{
-
             $(".searchuserimg").css("width","15%");
             var t = $(".searchuserimg").css("width");
             $(".searchuserimg").css("height",t);
@@ -42,7 +50,16 @@
             $(".container").css("height",t);
             $(".card").css("height","inherit");
         }
-    })
+    });
+    var t = $("#around").parent().attr("class");
+    if(t == "toggle btn btn-default off"){
+        $("#personalFilter").css("display","none");
+        $("#filterandsearch").css("margin-top","15%");
+    }
+    if(t == "toggle btn btn-primary"){
+        $("#personalFilter").css("display","block");
+        $("#filterandsearch").css("margin-top","5%");
+    }
 </script>
 <div id="home">
     <div id="parametersWrapper">
@@ -52,13 +69,15 @@
         <div id="parameters">
             <form id="search" action="../match_result/" method="post">{% csrf_token %}
                 <div id="filtersWrapper">
-                    <div id="filterChoice">
-                        <input name="around" id="around" type="checkbox" checked data-toggle="toggle" data-on="People around me!" data-off="My own filters!">
+                    <div id="filterandsearch" style="margin-top:15%">
+                        <div id="filterChoice">
+                                <input name="around" id="around" class="around" type="checkbox" checked="false" data-toggle="toggle" data-on="People around me!" data-off="My own filters!">
+                        </div>
                         <div id="searchButton">
-                            <button class="btn btn-primary" type="submit" value="login">Search</button>
+                                <button class="btn btn-primary" type="submit" value="login">Search</button>
                         </div>
                     </div>
-                    <div id="personalFilter">
+                    <div id="personalFilter" style="display: none">
                         <div class="col-xs-3">
                             <input class="form-control" name="minAge" id="minAge" type="text" placeholder="Age minimum">
                         </div>
@@ -83,14 +102,18 @@
             <div class="card" >
               <img class="searchuserimg" src="{% static 'img/img_avatar.png' %}" alt="Avatar">
               <div class="container">
-                <div class="name"><p>{{user.username}}</p></div>
+                  <div class="name"><p>{{user.username}}</p></div>
                   <div class="age"><p>{{user.age}}</p></div>
                   <div class="lookingfor"><p>{{user.looking_for}}</p></div>
                   <div class="orientation"><p>{{user.sexual_orientation}}</p></div>
+                  <div class="description"><p>description description description description description description description description description description description description description description description description description description </p></div>
+                  <button class="btn btn-primary" type="submit" value="login" id="detail">Details</button>
+                  <button class="btn btn-primary" type="submit" value="login" id="follow">Follow!</button>
               </div>
             </div>
         {% endfor %}
     </div>
+    {% if users %}
     <div id="paginator">
         <div class="pagination">
             <span class="step-links">
@@ -108,5 +131,6 @@
             </span>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
