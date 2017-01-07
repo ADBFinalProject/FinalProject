@@ -208,6 +208,7 @@ class UserFormView(View):
     # Process the form
     def post(self, request):
         form = self.form_class(request.POST)
+        print form.errors
         if form.is_valid():
             user = form.save(commit=False)
             # Cleaning and normalizing data

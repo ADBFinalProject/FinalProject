@@ -6,7 +6,9 @@ from multiselectfield import MultiSelectField
 class Dater(AbstractUser):
     AbstractUser.username = models.CharField(max_length=30)
     AbstractUser.password = models.CharField(max_length=30)
+    picture = models.ImageField(upload_to="users_picture", blank=True, null=True)
     summary = models.TextField()
+    picture_url = models.TextField()
     entertainement = models.TextField()
     we_behavior = models.TextField()
     essentials = models.TextField()
@@ -26,6 +28,7 @@ class Dater(AbstractUser):
 
     def __str__(self):
         return self.username
+
 
 class Location(models.Model):
     name_of_location = models.TextField()

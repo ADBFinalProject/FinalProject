@@ -66,6 +66,8 @@ for user in users:
             user_to_insert_looking_for.append("sex")
         if "friend" in user_details["looking_for"]:
             user_to_insert_looking_for.append("friend")
+    if "picture" in user_details:
+        user_to_insert.picture_url = user_details["picture"]
 
     user_to_insert.looking_for = user_to_insert_looking_for
     coordinates = user_details['generated_location'].split(',')
@@ -76,7 +78,7 @@ for user in users:
                                              we_behavior=user_to_insert.we_behavior,
                                              essentials=user_to_insert.essentials, thinkings=user_to_insert.thinkings,
                                              messaging_conditions=user_to_insert.messaging_conditions,
-                                             gender=user_to_insert.gender,
+                                             gender=user_to_insert.gender,  picture_url=user_to_insert.picture_url,
                                              sexual_orientation=user_to_insert.sexual_orientation,
                                              looking_for=user_to_insert.looking_for, latitude=user_to_insert.latitude,
                                              longitude=user_to_insert.longitude)

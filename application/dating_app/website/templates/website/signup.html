@@ -12,7 +12,7 @@
 
 
 <div id="home">
-    <form id="signupForm" method="post" action="">
+    <form id="signupForm" method="post" action="" enctype='multipart/form-data'>
       {% csrf_token %}
       {% include 'website/form-template.html' %}
       <button type="submit" class="btn btn-danger">Submit</button>
