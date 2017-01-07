@@ -34,8 +34,16 @@ def match(request):
 
 @login_required
 def get_match(request):
-    min_age = request.POST.get('minAge', '')
-    max_age = request.POST.get('maxAge', '')
+    if request.POST.get('minAge', '') == '':
+        min_age = '0'
+    else:
+        min_age = request.POST.get('minAge', '')
+    
+    if request.POST.get('maxAge', '') == '':
+        max_age = '99'
+    else:
+        max_age = request.POST.get('maxAge', '')
+    
     people_around = request.POST.get('around', 'off')
     looking_for = request.POST.getlist('lookingFor', '__empty__')
     if request.method == "POST":
