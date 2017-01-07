@@ -6,7 +6,7 @@ from .forms import UserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from .models import Dater
-
+from neomodel import db
 
 def index(request):
         return render(request, 'website/index.html', {})
@@ -61,7 +61,22 @@ def get_match(request):
             else:
                 request.session['looking_for'] = ['sex', 'friend', 'short_term', 'long_term']
         else:
-            return redirect('website:index') # Add neo4J request here
+            # search people_around
+            # Add neo4J request here
+            # NOT finished yet, need to convert returned user to Dater format
+            cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
+                  'OPTIONAL MATCH (b:user) ' \
+                  'WHERE not a=b and b.age > %d and b.age < %d ' \
+                  'RETURN b ' \
+                  'LIMIT 5 ' % (request.user.username, int(min_age), int(max_age))
+            users_neo4j = db.cypher_query(cmd)
+    
+            for usr in users_neo4j[0]:
+                print type(usr)
+                for att in usr:
+                    print att['user_id'], att['age']
+    
+            return redirect('website:index')
     users = get_user_from_sessions(request)
     print users
     paginator = Paginator(users, 2)  # Show 2 contacts per page
@@ -148,12 +163,28 @@ class UserFormView(View):
             # Cleaning and normalizing data
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            summary = form.cleaned_data['description']
+            age = int(form.cleaned_data['age'])
+            gender = form.cleaned_data['gender']
+            sexual_orientation = form.cleaned_data['sexual_orientation']
+            looking_for = form.cleaned_data['looking_for']
+            mail = form.cleaned_data['email']
+            # create a user node in neo4j db
+            cmd = 'CREATE (u:user {user_id:\'%s\', summary:\'%s\', age:%d, gender:\'%s\', sexual_orientation:\'%s\', email:\'%s\'})' \
+                  % (username, summary, age, gender, sexual_orientation, mail)
+            db.cypher_query(cmd)
+            # add the label
+            for target in looking_for:
+                cmd = 'MATCH (u:user {user_id:\'%s\'}) SET u:%s' % (username, target)
+                db.cypher_query(cmd)
+            
             user.set_password(password)
             user.latitude = 24.8047
             user.longitude = 120.9714
             user.save()
             # returns User objects if the credential are correct
             user = authenticate(username=username, password=password)
+            
 
             if user is not None:
                 if user.is_active:
