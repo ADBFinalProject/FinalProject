@@ -1,7 +1,7 @@
 import json
 from py2neo import Graph, Node, Relationship
 
-graph = Graph(password="ErplEck1692")  # enter your admin pw here
+graph = Graph(password="")  # enter your admin pw here
 
 ALL_USR_FILE = '../../data/users_with_coordinate.json'
 ALL_USR_json = json.loads(open(ALL_USR_FILE).read())

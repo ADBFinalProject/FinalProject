@@ -161,15 +161,22 @@
         {% endfor %}
     </div>
     {% if users %}
-    <div id="paginator">
-        <div class="pagination">
-            <ul class="pagination">
-                {% for i in users.paginator.page_range %}
-                    <li><a href="?page={{ i }}">{{i}}</a></li>
-                {% endfor %}
-            </ul>
+        <div id="paginator">
+            <span class="step-links">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if users.has_previous %}
+                            <li class="page-item"><a href="?page={{ users.previous_page_number }}">Previous</a></li>
+
+                        {% endif %}
+
+                        {% if users.has_next %}
+                            <li class="page-item"><a href="?page={{ users.next_page_number }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </span>
         </div>
-    </div>
     {% endif %}
 </div>
 {% endblock %}

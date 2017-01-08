@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import EmptyPage, PageNotAnInteger
+from django.core.paginator import EmptyPage, Paginator
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
@@ -7,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from .models import Dater
 from neomodel import db
+
 
 
 def index(request):
@@ -91,21 +93,21 @@ def build_neo4j_cyper_query(user, limit):
     if user.sexual_orientation == "bisexual":
         cmd = 'MATCH (a:user {user_id: "%s"}) ' \
               'OPTIONAL MATCH (b:user) ' \
-              'WHERE not a = b ' \
+              'WHERE not a.user_id = b.user_id ' \
               'RETURN b.user_id as username, distance(point(a), point(b)) as dist ' \
               'ORDER BY dist ' \
               'LIMIT %s ' % (user.username, limit)
     elif user.sexual_orientation == "gay":
         cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
               'OPTIONAL MATCH (b:user) ' \
-              'WHERE not a = b AND a.gender=b.gender ' \
+              'WHERE not a.user_id = b.user_id AND a.gender=b.gender ' \
               'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
               'ORDER BY dist ' \
               'LIMIT %s ' % (user.username, limit)
     else:
         cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
               'OPTIONAL MATCH (b:user) ' \
-              'WHERE not a = b AND NOT a.gender=b.gender ' \
+              'WHERE not a.user_id = b.user_id AND NOT a.gender=b.gender ' \
               'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
               'ORDER BY dist ' \
               'LIMIT %s ' % (user.username, limit)
@@ -223,10 +225,10 @@ class UserFormView(View):
                 db.cypher_query(cmd)
             # returns User objects if the credential are correct
             user = authenticate(username=username, password=password)
-            
 
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     return redirect('website:home')
         return render(request, self.template_name, {'form': form})
+
