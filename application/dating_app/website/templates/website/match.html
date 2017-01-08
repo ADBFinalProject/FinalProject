@@ -17,7 +17,9 @@
 <script src="{% static 'js/match.js' %}"></script>
 <div id="home">
     <div id="result">
-
+        {% if users %}
+            {{users}}
+        {% endif %}
     </div>
 </div>
 {% endblock %}

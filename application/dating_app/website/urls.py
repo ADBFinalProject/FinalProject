@@ -14,5 +14,4 @@ urlpatterns = [
     url(r'^profile/logout/$', views.logout, name='logout'),
     url(r'^profile/match_result/$', views.get_match, name='match_result'),
     url(r'profile/(?P<username>[a-zA-Z0-9]+)$', views.get_user_profile, name="users"),
-    url(r'^profile/edit/$',views)
 ]
