@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from .models import Dater
 from neomodel import db
+import re
 
 
 
@@ -38,6 +39,11 @@ def search(request):
 
 @login_required
 def match(request):
+    matched_user = []
+    query = 'MATCH (a:user {user_id:"%s"}) ' \
+            'OPTIONAL MATCH (b:user)' \
+            'WHERE EXISTS ' % (request.user.username)
+    #get_user_from_query(query)
     return render(request, 'website/match.html', {})
 
 
@@ -216,8 +222,8 @@ class UserFormView(View):
             user.save()
 
             # create a user node in neo4j db
-            cmd = 'CREATE (u:user {user_id:\'%s\', summary:\'%s\', age:%d, gender:\'%s\', orientation:\'%s\', email:\'%s\', latitude:%d, longitude:%d})' \
-                  % (username, summary, age, gender, sexual_orientation, mail, user.latitude, user.longitude)
+            cmd = 'CREATE (u:user {user_id:\'%s\', summary:"%s", age:%d, gender:\'%s\', orientation:\'%s\', email:\'%s\', latitude:%d, longitude:%d})' \
+                  % (username, summary.replace('\'', '\\\''), age, gender, sexual_orientation, mail, user.latitude, user.longitude)
             db.cypher_query(cmd)
             # add the label
             for target in looking_for:
