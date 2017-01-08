@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import EmptyPage, PageNotAnInteger
+from django.core.paginator import EmptyPage, Paginator
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
@@ -8,6 +9,7 @@ from django.contrib import auth
 from .models import Dater
 from neomodel import db
 import re
+
 
 
 def index(request):
@@ -230,10 +232,10 @@ class UserFormView(View):
                 db.cypher_query(cmd)
             # returns User objects if the credential are correct
             user = authenticate(username=username, password=password)
-            
 
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     return redirect('website:home')
         return render(request, self.template_name, {'form': form})
+
