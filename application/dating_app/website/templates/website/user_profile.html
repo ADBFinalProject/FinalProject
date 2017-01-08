@@ -55,30 +55,90 @@
         </div>
     </div>
     <div id="information">
-        <div id="summary">
-            <h3>Description</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
-            </p>
-        </div>
-        <div id="thinkings">
-            <h3>Description</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
-            </p>
-        </div>
-        <div id="messaging_conditions">
-            <h3>Description</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
-            </p>
-        </div>
-        <div id="essentials">
-            <h3>Description</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis hendrerit ex, sed iaculis purus. Integer congue ligula quam, sit amet egestas dui commodo in. Phasellus vel justo vel dolor interdum dapibus ut non metus. Suspendisse turpis ipsum, porta eu urna in, pulvinar hendrerit tellus. Mauris sed maximus risus, sed pulvinar ante. Etiam suscipit nec mauris quis mattis. Nunc sollicitudin, nibh nec ornare vulputate, nisl lorem posuere elit, quis gravida velit dui vel magna.
-            </p>
-        </div>
+        <span id="summary">
+            <div>
+                <span class="tit">Summary</span>
+            </div>
+            <div id="summarytext">
+                <p>
+                    {% if user.summary %}
+                        {{user.summary}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+        </span>
+        <span id="thinkings">
+            <div>
+                <span class="tit">Thinkings</span>
+            </div>
+            <div id="thinkingstext">
+                <p>
+                    {% if user.thinkings %}
+                        {{user.thinkings}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+        </span>
+        <span id="entertainement">
+            <div>
+                <span class="tit">Entertainement</span>
+            </div>
+            <div id="entertainementtext">
+                <p>
+                    {% if user.entertainement %}
+                        {{user.entertainement}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+        </span>
+        <span id="we_behavior">
+            <div>
+                <span class="tit">We_behavior</span>
+            </div>
+            <div id="we_behaviortext">
+                <p>
+                    {% if user.we_behavior %}
+                        {{user.we_behavior}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+        </span>
+        <span id="essentials">
+            <div>
+                <span class="tit">Essentials</span>
+            </div>
+            <div id="essentialstext">
+                <p>
+                    {% if user.essentials %}
+                        {{user.essentials}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+        </span>
+        <span id="messaging_conditions">
+            <div>
+                <span class="tit">Messaging_conditions</span>
+            </div>
+            <div id="messaging_conditionstext">
+                <p>
+                    {% if user.messaging_conditions %}
+                        {{user.messaging_conditions}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+        </span>
     </div>
 </div>
 

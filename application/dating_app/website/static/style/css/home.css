@@ -46,16 +46,6 @@ div #home{
     border: 1px solid #ffffff;
 }
 
-#information{
-    width: 100%;
-    height: auto;
-    border: 1px solid #ffff00;
-    font-family: Georgia;
-    color: #2e6da4;
-    background-color: #eae1e7;
-    border: 1px solid #ffffff;
-}
-
 #username{
     padding-top: 5%;
     width:100%;
@@ -64,24 +54,86 @@ div #home{
     border: 1px solid #ffff00;
 }
 
-#summary{
-    margin-top: 3%;
+#information{
+    width: 100%;
+    height: auto;
+    border: 1px solid #ffff00;
+    font-family: Georgia;
+    color: #2e6da4;
+    background-color: #eae1e7;
+    margin-top: 30px;
 }
 
 #information span{
-    margin-bottom: 10px;
+    margin-top: 50px;
+    width: 100%;
+    margin-bottom: 50px;
 }
 
-#information span h3{
+#information span div{
+    /*border: 1px solid #ffffff;*/
+}
+
+#information span div .tit{
+    margin-top: 5px;
     font-size: 30px;
     margin-left: 3%;
 }
+
+#information span div .ui-icon.ui-icon-pencil{
+    clear: both;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 30px;
+}
+
+#information span div p{
+    width: 90%;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 5%;
+    margin-bottom: 10px;
+    margin-right: 5%;
+}
+
+#information span div textarea{
+    width: 90%;
+    height: 15%;
+    font-size: 20px;
+    margin-top: 7px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+
+#information span div form button{
+    float: right;
+    margin-right: 50px;
+}
+
+#information span div button{
+    float: right;
+    margin-right: 50px;
+}
+
+/*
+#information span div span{
+    width:30%;
+    font-size: 30px;
+    margin-left: 3%;
+}
+
 #information span p{
     font-size: 20px;
     margin-left: 5%;
     margin-bottom: 2%;
     margin-right: 5%;
     border: 1px solid #ffffff;
+}
+
+#information span div span{
+    float: right;
 }
 
 #essentials{
@@ -92,7 +144,4 @@ div #home{
     border: 1px solid #ffffff;
     float: left;
 }
-
-.tit{
-    border: 1px solid #ffffff;
-}
+*/
