@@ -61,6 +61,36 @@
             event.preventDefault();
             //window.location.replace("http://stackoverflow.com");
         })
+
+        $(".btn.btn-primary.follow").on('click',function () {
+            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            alert(s);
+            $.ajax({
+                type:'POST',
+                url:'../followtest/',
+                data:{'name':s},
+                dataType: 'script',
+                success:function(e){
+                    $(".btn.btn-primary.follow").hide();
+                    $(".btn.btn-primary.unfollow").show();
+                },
+            });
+        });
+
+         $(".btn.btn-primary.unfollow").on('click',function () {
+            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            alert(s);
+            $.ajax({
+                type:'POST',
+                url:'../followtest/',
+                data:{'name':s},
+                dataType: 'script',
+                success:function(e){
+                    $(".btn.btn-primary.unfollow").hide();
+                    $(".btn.btn-primary.follow").show();
+                },
+            });
+        });
         /*$(".detail").bind('click',function(event){
             alert(this);
             var s = $(this).parent(".container").children(".name").children(".gfdb").html();
@@ -156,6 +186,7 @@
                   <div class="description"><p>{{user.summary}}</p></div>
                   <button class="btn btn-primary detail" type="submit" value="login" href="../{{user.username}}" data-target="../{{user.username}}" onclick="myfunc()">Details</button>
                   <button class="btn btn-primary follow" type="submit" value="login" >Follow!</button>
+                  <button class="btn btn-primary unfollow" type="submit" value="login" style="display:none;">Unfollow!</button>
               </div>
             </div>
         {% endfor %}

@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_protect
-from django.http import HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import auth
 from .models import Dater
 from neomodel import db
@@ -15,6 +15,7 @@ from neomodel import db
 
 def index(request):
         return render(request, 'website/index.html', {})
+
 
 @login_required
 def get_user_profile(request, username):
@@ -46,6 +47,22 @@ def match(request):
     matched_user_list = get_user_from_query(query)
     print matched_user_list
     return render(request, 'website/match.html', {})
+
+
+@csrf_exempt
+@login_required
+def follow_test(request):
+    #name is who you want to follow
+    kname = request.POST.get('name', '')
+    print kname
+    #in this part,change the state of following
+    #follow return 1, unfollow return 2
+    #your DB commond line
+
+
+
+
+    return HttpResponse("1")
 
 
 @login_required
@@ -214,6 +231,7 @@ class UserFormView(View):
     # Process the form
     def post(self, request):
         form = self.form_class(request.POST)
+        print form.errors
         if form.is_valid():
             user = form.save(commit=False)
             # Cleaning and normalizing data

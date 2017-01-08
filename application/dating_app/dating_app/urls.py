@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^profile/home/', include('website.urls')),
     url(r'^profile/logout/', include('website.urls')),
     url(r'^profile/edit/', include('website.urls')),
+    url(r'^profile/followtest/', include('website.urls')),
 ]

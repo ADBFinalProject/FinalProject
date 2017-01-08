@@ -94,10 +94,15 @@
             }
         });
         $("#summarybutton").on('click',function () {
+            var data = {
+                texta : $("#summaryedit").children("form").children("textarea").val(),
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            };
+            alert(data['texta']);
             $.ajax({
-                url:"../edit/",
-                data:$("#summaryedit").children("form").children("textarea").val(),
-                type:"POST",
+                type:'POST',
+                url:'../edit/?'+'texta='+ $("#summaryedit").children("form").children("textarea").val(),
+                dataType: 'script',
                 success:function(){
                     $("#summarytext").show();
                     $("#summaryedit").hide();

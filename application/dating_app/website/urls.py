@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^profile/match_result/$', views.get_match, name='match_result'),
     url(r'profile/(?P<username>[a-zA-Z0-9]+)$', views.get_user_profile, name="users"),
     url(r'^profile/edit/$', views.edit_user_info, name='edit'),
+    url(r'^profile/followtest/$', views.follow_test, name='followtest'),
 ]

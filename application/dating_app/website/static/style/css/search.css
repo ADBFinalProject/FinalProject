@@ -167,6 +167,11 @@ div #home{
     float: right;
 }
 
-#follow{
+.btn.btn-primary.unfollow{
     margin-right: 1%;
+    background: #ff0000;
+    margin-bottom: 1px;
+    margin-right: 0.2%;
+    width: 23%;
+    float: right;
 }
