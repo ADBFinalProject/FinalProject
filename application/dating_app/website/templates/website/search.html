@@ -64,10 +64,9 @@
 
         $(".btn.btn-primary.follow").on('click',function () {
             var s = $(this).parent(".container").children(".name").children(".gfdb").html();
-            alert(s);
             $.ajax({
                 type:'POST',
-                url:'../followtest/',
+                url:'../follow/',
                 data:{'name':s},
                 dataType: 'script',
                 success:function(e){
@@ -80,10 +79,9 @@
 
          $(".btn.btn-primary.unfollow").on('click',function () {
             var s = $(this).parent(".container").children(".name").children(".gfdb").html();
-            alert(s);
             $.ajax({
                 type:'POST',
-                url:'../followtest/',
+                url:'../unfollow/',
                 data:{'name':s},
                 dataType: 'script',
                 success:function(e){

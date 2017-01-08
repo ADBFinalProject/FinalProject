@@ -181,24 +181,22 @@
                 {{ user.username }}
             </div>
             <div id="userAge">
-                {{ user.email }}
                 {% if user.gender == "w" %}
-                    , Women
+                    Women
                 {% else %}
-                    , Men
+                    Men
                 {% endif %}
                 , {{ user.sexual_orientation }}
                 , {{ user.looking_for }}
                 , {{ user.age }}
             </div>
             <div>
-                <button>
             </div>
         </div>
     </div>
-    <div id="information">
-        <span id="summary">
-            <div>
+    <div id="information" >
+        <div id="summary" class="details">
+            <div class="ttt">
                 <span class="tit">Summary</span>
                 <span class="ui-icon ui-icon-pencil summary"></span>
             </div>
@@ -221,9 +219,9 @@
                 </form>
                 <button id="summarycb">cancel</button>
             </div>
-        </span>
-        <span id="thinkings">
-            <div>
+        </div>
+        <div id="thinkings" class="details">
+            <div class="ttt">
                 <span class="tit">Thinkings</span>
                 <span class="ui-icon ui-icon-pencil thinkings"></span>
             </div>
@@ -238,7 +236,7 @@
             </div>
             <div id="thinkingsedit" style="display:none">
                 <form id="edit" action="../........................../" method="post">
-                    <textarea value="1" >
+                    <textarea id="thinkings" name="thinkings" value="1" >
                     {% if user.thinkings %}
                         {{user.thinkings}
                     {% endif %}
@@ -247,9 +245,9 @@
                 </form>
                 <button id="thinkingscb">cancel</button>
             </div>
-        </span>
-        <span id="entertainement">
-            <div>
+        </div>
+        <div id="entertainement" class="details">
+            <div class="ttt">
                 <span class="tit">Entertainement</span>
                 <span class="ui-icon ui-icon-pencil entertainement"></span>
             </div>
@@ -264,7 +262,7 @@
             </div>
             <div id="entertainementedit" style="display:none">
                 <form id="edit" action="../........................../" method="post">
-                <textarea value="1" >
+                <textarea id="entertainement" name="entertainement" value="1" >
                 {% if user.entertainement %}
                     {{user.entertainement}
                 {% endif %}
@@ -273,9 +271,9 @@
                 </form>
                 <button id="entertainementcb">cancel</button>
             </div>
-        </span>
-        <span id="we_behavior">
-            <div>
+        </div>
+        <div id="we_behavior" class="details">
+            <div class="ttt">
                 <span class="tit">We_behavior</span>
                 <span class="ui-icon ui-icon-pencil we_behavior"></span>
             </div>
@@ -290,7 +288,7 @@
             </div>
             <div id="we_behavioredit" style="display:none">
                 <form id="edit" action="../........................../" method="post">
-                <textarea value="1" >
+                <textarea id="we_behavior" name="we_behavior" value="1" >
                 {% if user.we_behavior %}
                     {{user.we_behavior}
                 {% endif %}
@@ -299,9 +297,9 @@
                 </form>
                 <button id="we_behaviorcb">cancel</button>
             </div>
-        </span>
-        <span id="essentials">
-            <div>
+        </div>
+        <div id="essentials" class="details">
+            <div class="ttt">
                 <span class="tit">Essentials</span>
                 <span class="ui-icon ui-icon-pencil essentials"></span>
             </div>
@@ -316,7 +314,7 @@
             </div>
             <div id="essentialsedit" style="display:none">
                 <form id="edit" action="../........................../" method="post">
-                <textarea value="1" >
+                <textarea id="essentials" name="essentials" value="1" >
                 {% if user.essentials %}
                     {{user.essentials}
                 {% endif %}
@@ -325,9 +323,9 @@
                 </form>
                 <button id="essentialscb">cancel</button>
             </div>
-        </span>
-        <span id="messaging_conditions">
-            <div>
+        </div>
+        <div id="messaging_conditions" class="details">
+            <div class="ttt">
                 <span class="tit">Messaging_conditions</span>
                 <span class="ui-icon ui-icon-pencil messaging_conditions"></span>
             </div>
@@ -342,7 +340,7 @@
             </div>
             <div id="messaging_conditionsedit" style="display:none">
                 <form id="edit" action="../........................../" method="post">
-                    <textarea value="1" >
+                    <textarea id="messaging_conditions" name="messaging_conditions" value="1" >
                     {% if user.messaging_conditions %}
                         {{user.messaging_conditions}
                     {% endif %}
@@ -351,7 +349,7 @@
                 </form>
                 <button id="messaging_conditionscb">cancel</button>
             </div>
-        </span>
+        </div>
     </div>
 </div>
 
