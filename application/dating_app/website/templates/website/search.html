@@ -79,6 +79,7 @@
 
          $(".btn.btn-primary.unfollow").on('click',function () {
             var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            alert(s);
             $.ajax({
                 type:'POST',
                 url:'../unfollow/',
@@ -178,10 +179,24 @@
             <div class="card" >
               <img class="searchuserimg" src="{{user.picture_url}}" alt="Avatar">
               <div class="container">
-                  <div class="name"><span class="tit">Name:  </span><span class="gfdb">{{user.username}}</span></div>
-                  <div class="age"><span class="tit">Age:  </span><span class="gfdb">{{user.age}}</span></div>
-                  <div class="lookingfor"><span class="tit">LookingFor:  </span><span class="gfdb">{{user.looking_for}}</span></div>
-                  <div class="orientation"><span class="tit">Sex ori:  </span><span class="gfdb">{{user.sexual_orientation}}</span></div>
+                  <div class="name"><span class="tit">Name: </span><span class="gfdb">{{user.username}}</span></div>
+                  <div class="age"><span class="tit">Age: </span><span class="gfdb">{{user.age}}</span></div>
+                  <div class="lookingfor"><span class="tit">Looking for: </span>
+                      <span class="gfdb">
+                          {% for looking in user.looking_for %}
+                                {% if looking == "short_term" %}
+                                    Short.
+                                {%elif looking == "long_term"%}
+                                    Long.
+                                {%elif looking == "sex"%}
+                                    Sex.
+                                {%else%}
+                                    Friend.
+                                {%endif%}
+                          {% endfor %}
+                      </span>
+                  </div>
+                  <div class="orientation"><span class="tit">Orientation: </span><span class="gfdb">{{user.sexual_orientation}}</span></div>
                   <div class="description"><p>{{user.summary}}</p></div>
                   <button class="btn btn-primary detail" type="submit" value="login" href="../{{user.username}}" data-target="../{{user.username}}" onclick="myfunc()">Details</button>
                   <button class="btn btn-primary follow" type="submit" value="login" >Follow!</button>
