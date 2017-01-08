@@ -220,8 +220,8 @@ class UserFormView(View):
             user.save()
 
             # create a user node in neo4j db
-            cmd = 'CREATE (u:user {user_id:\'%s\', summary:\'%s\', age:%d, gender:\'%s\', orientation:\'%s\', email:\'%s\', latitude:%d, longitude:%d})' \
-                  % (username, re.escape(summary), age, gender, sexual_orientation, mail, user.latitude, user.longitude)
+            cmd = 'CREATE (u:user {user_id:\'%s\', summary:"%s", age:%d, gender:\'%s\', orientation:\'%s\', email:\'%s\', latitude:%d, longitude:%d})' \
+                  % (username, summary.replace('\'', '\\\''), age, gender, sexual_orientation, mail, user.latitude, user.longitude)
             db.cypher_query(cmd)
             # add the label
             for target in looking_for:
