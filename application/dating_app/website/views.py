@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from .models import Dater
 from neomodel import db
+import re
 
 
 def index(request):
@@ -36,6 +37,11 @@ def search(request):
 
 @login_required
 def match(request):
+    matched_user = []
+    query = 'MATCH (a:user {user_id:"%s"}) ' \
+            'OPTIONAL MATCH (b:user)' \
+            'WHERE EXISTS ' % (request.user.username)
+    #get_user_from_query(query)
     return render(request, 'website/match.html', {})
 
 
@@ -91,21 +97,21 @@ def build_neo4j_cyper_query(user, limit):
     if user.sexual_orientation == "bisexual":
         cmd = 'MATCH (a:user {user_id: "%s"}) ' \
               'OPTIONAL MATCH (b:user) ' \
-              'WHERE not a = b ' \
+              'WHERE not a.user_id = b.user_id ' \
               'RETURN b.user_id as username, distance(point(a), point(b)) as dist ' \
               'ORDER BY dist ' \
               'LIMIT %s ' % (user.username, limit)
     elif user.sexual_orientation == "gay":
         cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
               'OPTIONAL MATCH (b:user) ' \
-              'WHERE not a = b AND a.gender=b.gender ' \
+              'WHERE not a.user_id = b.user_id AND a.gender=b.gender ' \
               'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
               'ORDER BY dist ' \
               'LIMIT %s ' % (user.username, limit)
     else:
         cmd = 'MATCH (a:user {user_id:\'%s\'}) ' \
               'OPTIONAL MATCH (b:user) ' \
-              'WHERE not a = b AND NOT a.gender=b.gender ' \
+              'WHERE not a.user_id = b.user_id AND NOT a.gender=b.gender ' \
               'RETURN b.user_id , distance(point(a), point(b)) as dist ' \
               'ORDER BY dist ' \
               'LIMIT %s ' % (user.username, limit)
@@ -215,7 +221,7 @@ class UserFormView(View):
 
             # create a user node in neo4j db
             cmd = 'CREATE (u:user {user_id:\'%s\', summary:\'%s\', age:%d, gender:\'%s\', orientation:\'%s\', email:\'%s\', latitude:%d, longitude:%d})' \
-                  % (username, summary, age, gender, sexual_orientation, mail, user.latitude, user.longitude)
+                  % (username, re.escape(summary), age, gender, sexual_orientation, mail, user.latitude, user.longitude)
             db.cypher_query(cmd)
             # add the label
             for target in looking_for:
