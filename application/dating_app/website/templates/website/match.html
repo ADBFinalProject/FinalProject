@@ -10,16 +10,186 @@
 
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'style/css/match.css' %}">
+<link rel="stylesheet" href="{% static 'style/css/search.css' %}">
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".container").css("height",$(".searchuserimg").css("height"));
 
+        $("#around").parent().click(function () {
+            var t = $("#around").parent().attr("class");
+            if(t == "toggle btn btn-default off"){
+                $("#personalFilter").css("display","none");
+                $("#filterandsearch").css("margin-top","15%");
+            }
+            if(t == "toggle btn btn-primary"){
+                $("#personalFilter").css("display","block");
+                $("#filterandsearch").css("margin-top","5%");
+            }
+        });
+        var hw = $(window).width();
+        console.log(hw);
+        if(hw < 1200){
+            $("#home").css("width","1130px");
+        }else{
+            $("#home").css("width","auto");
+        }
+        var h = $(".card").css("height");
+        var w = $(".card").css("width");
+        var h1 = parseInt(h.slice(0,h.length-2));
+        var w1 = parseInt(w.slice(0,w.length-2));
+        if(w1 * 0.15 < 230){
+            $(".searchuserimg").css("width","230px");
+            $(".searchuserimg").css("height","230px");
+            $(".container").css("height","230px");
+            w1 = parseInt(w.slice(0,w.length-2)) *0.95 - 230;
+            $(".container").css("width",w1 + "px");
+            $(".card").css("height","230px");
+        }else{
+            $(".searchuserimg").css("width","15%");
+            var t = $(".searchuserimg").css("width");
+            $(".searchuserimg").css("height",t);
+            $(".container").css("width","84.5%");
+            $(".container").css("height",t);
+            $(".card").css("height","inherit");
+        }
+        $(".btn.btn-primary.detail").click(function(event){
+            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            window.location.replace("../"+s);
+            event.preventDefault();
+            //window.location.replace("http://stackoverflow.com");
+        })
+
+        $(".btn.btn-primary.follow").on('click',function () {
+            var s = $(this).parent(".container").children(".name").children(".gfdb.names").html();
+            var follow = $(this).parent(".container").children(".btn.btn-primary.follow");
+            var unfollow = $(this).parent(".container").children(".btn.btn-primary.unfollow");
+            $.ajax({
+                type:'POST',
+                url:'../follow/',
+                data:{'name':s},
+                dataType: 'script',
+                success:function(e){
+                    follow.hide();
+                    unfollow.show();
+                },
+            });
+        });
+         $(".btn.btn-primary.unfollow").on('click',function () {
+            var s = $(this).parent(".container").children(".name").children(".gfdb.names").html();
+            var follow = $(this).parent(".container").children(".btn.btn-primary.follow");
+            var unfollow = $(this).parent(".container").children(".btn.btn-primary.unfollow");
+            $.ajax({
+                type:'POST',
+                url:'../unfollow/',
+                data:{'name':s},
+                dataType: 'script',
+                success:function(e){
+                    unfollow.hide();
+                    follow.show();
+                },
+            });
+        });
+        /*$(".detail").bind('click',function(event){
+            alert(this);
+            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            alert(s);
+            window.location.replace("../"+s);
+            event.preventDefault();
+            //window.location.replace("http://stackoverflow.com");
+        })*/
+        var checkfol = $("#checkfollow").html();
+
+         $(".gfdb.names").each(function () {
+            var follow = $(this).parent(".name").parent(".container").children(".btn.btn-primary.follow");
+            var unfollow = $(this).parent(".name").parent(".container").children(".btn.btn-primary.unfollow");
+            var tn = $(this).html();
+            var index = checkfol.indexOf(tn);
+            if(index > 0){
+                follow.hide();
+                unfollow.show();
+            }
+        });
+    });
+    $(window).resize(function () {
+        var hw = $(window).width();
+        console.log(hw);
+        if(hw < 1200){
+            $("#home").css("width","1130px");
+        }else{
+            $("#home").css("width","auto");
+        }
+        var h = $(".card").css("height");
+        var w = $(".card").css("width");
+        var h1 = parseInt(h.slice(0,h.length-2));
+        var w1 = parseInt(w.slice(0,w.length-2))
+        if(w1 * 0.15 < 230){
+            $(".searchuserimg").css("width","230px");
+            $(".searchuserimg").css("height","230px");
+            $(".container").css("height","230px");
+            w1 = parseInt(w.slice(0,w.length-2)) *0.95 - 230;
+            $(".container").css("width",w1 + "px");
+            $(".card").css("height","230px");
+        }else{
+            $(".searchuserimg").css("width","15%");
+            var t = $(".searchuserimg").css("width");
+            $(".searchuserimg").css("height",t);
+            $(".container").css("width","84.5%");
+            $(".container").css("height",t);
+            $(".card").css("height","inherit");
+        }
+    });
+    var t = $("#around").parent().attr("class");
+    if(t == "toggle btn btn-default off"){
+        $("#personalFilter").css("display","none");
+        $("#filterandsearch").css("margin-top","15%");
+    }
+    if(t == "toggle btn btn-primary"){
+        $("#personalFilter").css("display","block");
+        $("#filterandsearch").css("margin-top","5%");
+    }
+
+</script>
 <script src="{% static 'js/match.js' %}"></script>
 <div id="home">
+    <div id="checkfollow" style="display: none">
+        {% for user in request.user.followings.all %}
+          {{user}}
+        {% endfor %}
+    </div>
     <div id="result">
-        {% if users %}
-            {{users}}
-        {%endif%}
+        <div id="results">
+        {% for user in users %}
+            <div class="card" >
+              <img class="searchuserimg" src="{{user.picture_url}}" alt="Avatar">
+              <div class="container">
+                  <div class="name"><span class="tit">Name: </span><span class="gfdb names">{{user.username}}</span></div>
+                  <div class="age"><span class="tit">Age: </span><span class="gfdb">{{user.age}}</span></div>
+                  <div class="lookingfor"><span class="tit">Looking for: </span>
+                      <span class="gfdb">
+                          {% for looking in user.looking_for %}
+                                {% if looking == "short_term" %}
+                                    Short.
+                                {%elif looking == "long_term"%}
+                                    Long.
+                                {%elif looking == "sex"%}
+                                    Sex.
+                                {%else%}
+                                    Friend.
+                                {%endif%}
+                          {% endfor %}
+                      </span>
+                  </div>
+                  <div class="orientation"><span class="tit">Orientation: </span><span class="gfdb">{{user.sexual_orientation}}</span></div>
+                  <div class="description"><p>{{user.summary}}</p></div>
+                  <button class="btn btn-primary detail" type="submit" value="login" href="../{{user.username}}" data-target="../{{user.username}}" onclick="myfunc()">Details</button>
+                  <button class="btn btn-primary follow" type="submit" value="login" >Follow!</button>
+                  <button class="btn btn-primary unfollow" type="submit" value="login" style="display:none;">Unfollow!</button>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
     </div>
 </div>
 {% endblock %}
