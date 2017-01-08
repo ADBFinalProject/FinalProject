@@ -38,10 +38,11 @@ def search(request):
 @login_required
 def match(request):
     matched_user = []
-    query = 'MATCH (a:user {user_id:"%s"}) ' \
-            'OPTIONAL MATCH (b:user)' \
-            'WHERE EXISTS ' % (request.user.username)
-    #get_user_from_query(query)
+    query = 'MATCH (a:user {user_id:\'%s\'})-[:FOLLOW]->(b:user) ' \
+            'WHERE EXISTS((b)-[:FOLLOW]->(a))' \
+            'RETURN b.user_id as username' \
+            % (request.user.username)
+    matched_user_list = get_user_from_query(query)[0]
     return render(request, 'website/match.html', {})
 
 
