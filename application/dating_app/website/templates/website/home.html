@@ -95,7 +95,7 @@
         });
         $("#summarybutton").on('click',function () {
             $.ajax({
-                url:"../match_result/",
+                url:"../edit/",
                 data:$("#summaryedit").children("form").children("textarea").val(),
                 type:"POST",
                 success:function(){
@@ -207,9 +207,11 @@
                 </p>
             </div>
             <div id="summaryedit" style="display:none">
-                <form id="edit" action="../........................../" method="post">
-                    <textarea value="1" >
-                    </textarea>
+                <form id="edit" action="../edit/" method="Post">{% csrf_token %}
+                    <div style="display:none;">
+                        summaryEdition
+                    </div>
+                    <textarea id="summary" name="summary" value="1" ></textarea>
                     <button id="summarybutton">submit</button>
                 </form>
                 <button id="summarycb">cancel</button>
@@ -231,12 +233,12 @@
             </div>
             <div id="thinkingsedit" style="display:none">
                 <form id="edit" action="../........................../" method="post">
-                <textarea value="1" >
-                {% if user.thinkings %}
-                    {{user.thinkings}
-                {% endif %}
-                </textarea>
-                <button id="thinkingsbutton">submit</button>
+                    <textarea value="1" >
+                    {% if user.thinkings %}
+                        {{user.thinkings}
+                    {% endif %}
+                    </textarea>
+                    <button id="thinkingsbutton">submit</button>
                 </form>
                 <button id="thinkingscb">cancel</button>
             </div>

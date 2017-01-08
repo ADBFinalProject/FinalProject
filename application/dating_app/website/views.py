@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from .forms import UserForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
+from django.http import HttpResponseRedirect
 from django.contrib import auth
 from .models import Dater
 from neomodel import db
@@ -13,7 +15,6 @@ from neomodel import db
 
 def index(request):
         return render(request, 'website/index.html', {})
-
 
 @login_required
 def get_user_profile(request, username):
@@ -46,6 +47,15 @@ def match(request):
     print matched_user_list
     return render(request, 'website/match.html', {})
 
+
+@login_required
+def edit_user_info(request):
+    user = Dater.objects.get(id=request.user.id)
+    for key in request.POST:
+        if key != "csrfmiddlewaretoken":
+            user.__dict__[key] = request.POST.get(key, '')
+    user.save()
+    return HttpResponseRedirect('../home/')
 
 
 @login_required
@@ -204,7 +214,6 @@ class UserFormView(View):
     # Process the form
     def post(self, request):
         form = self.form_class(request.POST)
-        print form.errors
         if form.is_valid():
             user = form.save(commit=False)
             # Cleaning and normalizing data

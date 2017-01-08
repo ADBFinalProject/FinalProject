@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^profile/match_result/', include('website.urls')),
     url(r'^profile/home/', include('website.urls')),
     url(r'^profile/logout/', include('website.urls')),
+    url(r'^profile/edit/', include('website.urls')),
 ]
