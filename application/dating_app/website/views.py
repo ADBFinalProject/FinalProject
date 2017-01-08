@@ -239,3 +239,16 @@ class UserFormView(View):
                     return redirect('website:home')
         return render(request, self.template_name, {'form': form})
 
+
+
+def follow(user_a, user_b):
+    query = 'MATCH (a:user {user_id:\'%s\'}), (b:user {user_id:\'%s\'})' \
+            'WHERE NOT EXISTS((a)-[:FOLLOW]->(b))' \
+            'CREATE (a)-[:FOLLOW]->(b)' % (user_a, user_b)
+    db.cypher_query(query)
+
+
+def unfollow(user_a, user_b):
+    query = 'MATCH (a:user {user_id:\'%s\'})-[r:FOLLOW]->(b:user {user_id:\'%s\'})' \
+            'delete r' % (user_a, user_b)
+    db.cypher_query(query)
