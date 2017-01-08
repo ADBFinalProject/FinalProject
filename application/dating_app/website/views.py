@@ -45,7 +45,7 @@ def match(request):
             'RETURN b.user_id as username' \
             % (request.user.username)
     matched_user_list = get_user_from_query(query)
-    return render(request, 'website/match.html', {})
+    return render(request, 'website/match.html', {"users": matched_user_list})
 
 
 @csrf_exempt
@@ -83,7 +83,11 @@ def edit_user_info(request):
 @login_required
 def get_match(request):
     min_age = request.POST.get('minAge', '')
-    max_age = request.POST.get('maxAge', '')
+    if min_age != '':
+        min_age = int(request.POST.get('minAge', ''))
+    max_age = request.POST.get('maxAge', '100')
+    if max_age != '':
+        max_age = int(request.POST.get('maxAge', '100'))
     people_around = request.POST.get('around', 'off')
     looking_for = request.POST.getlist('lookingFor', '__empty__')
     if request.method == "POST":
@@ -97,6 +101,7 @@ def get_match(request):
                 request.session['min_age'] = 0
             if isinstance(max_age, int):
                 users = users.filter(age__lte=max_age)
+                request.session['max_age'] = max_age
             else:
                 request.session['max_age'] = 99
             if looking_for != "__empty__":

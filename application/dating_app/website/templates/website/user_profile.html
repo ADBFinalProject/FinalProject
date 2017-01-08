@@ -48,7 +48,17 @@
                 ,{{ user.sexual_orientation }}
                 {% endif %}
                 {% if user.looking_for %}
-                ,{{ user.looking_for }}
+                    {% for looking in user.looking_for %}
+                        {% if looking == "short_term" %}
+                            Short.
+                        {%elif looking == "long_term"%}
+                            Long.
+                        {%elif looking == "sex"%}
+                            Sex.
+                        {%else%}
+                            Friend.
+                        {%endif%}
+                  {% endfor %}
                 {% endif %}
                 {% if user.age %}
                 ,{{ user.age }}
