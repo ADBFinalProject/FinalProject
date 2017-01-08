@@ -45,7 +45,6 @@ def match(request):
             'RETURN b.user_id as username' \
             % (request.user.username)
     matched_user_list = get_user_from_query(query)
-    print matched_user_list
     return render(request, 'website/match.html', {})
 
 
@@ -56,6 +55,7 @@ def follow_test(request):
     user_followed = Dater.objects.get(username=name)
     current_user = Dater.objects.get(id=request.user.id)
     current_user.followings.add(user_followed)
+    follow_neo4j(current_user, user_followed)
     return HttpResponse("1")
 
 
@@ -66,6 +66,7 @@ def unfollow_test(request):
     user_followed = Dater.objects.get(username=name)
     current_user = Dater.objects.get(id=request.user.id)
     current_user.followings.remove(user_followed)
+    unfollow_neo4j(current_user, user_followed)
     return HttpResponse("2")
 
 
@@ -271,15 +272,14 @@ class UserFormView(View):
         return render(request, self.template_name, {'form': form})
 
 
-
-def follow(user_a, user_b):
+def follow_neo4j(user_a, user_b):
     query = 'MATCH (a:user {user_id:\'%s\'}), (b:user {user_id:\'%s\'})' \
             'WHERE NOT EXISTS((a)-[:FOLLOW]->(b))' \
             'CREATE (a)-[:FOLLOW]->(b)' % (user_a, user_b)
     db.cypher_query(query)
 
 
-def unfollow(user_a, user_b):
+def unfollow_neo4j(user_a, user_b):
     query = 'MATCH (a:user {user_id:\'%s\'})-[r:FOLLOW]->(b:user {user_id:\'%s\'})' \
             'delete r' % (user_a, user_b)
     db.cypher_query(query)
