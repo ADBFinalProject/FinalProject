@@ -52,17 +52,21 @@ def match(request):
 @csrf_exempt
 @login_required
 def follow_test(request):
-    #name is who you want to follow
-    kname = request.POST.get('name', '')
-    print kname
-    #in this part,change the state of following
-    #follow return 1, unfollow return 2
-    #your DB commond line
-
-
-
-
+    name = request.POST.get('name', '')
+    user_followed = Dater.objects.get(username=name)
+    current_user = Dater.objects.get(id=request.user.id)
+    current_user.followings.add(user_followed)
     return HttpResponse("1")
+
+
+@csrf_exempt
+@login_required
+def unfollow_test(request):
+    name = request.POST.get('name', '')
+    user_followed = Dater.objects.get(username=name)
+    current_user = Dater.objects.get(id=request.user.id)
+    current_user.followings.remove(user_followed)
+    return HttpResponse("2")
 
 
 @login_required

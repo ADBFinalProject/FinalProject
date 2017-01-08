@@ -25,6 +25,7 @@ class Dater(AbstractUser):
     age = models.CharField(max_length=2)
     looking_for = MultiSelectField(choices=looking_for_choices)
     AbstractUser.email = models.EmailField()
+    followings = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
         return self.username
