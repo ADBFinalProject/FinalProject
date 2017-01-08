@@ -63,31 +63,32 @@
         })
 
         $(".btn.btn-primary.follow").on('click',function () {
-            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
+            var s = $(this).parent(".container").children(".name").children(".gfdb.names").html();
+            var follow = $(this).parent(".container").children(".btn.btn-primary.follow");
+            var unfollow = $(this).parent(".container").children(".btn.btn-primary.unfollow");
             $.ajax({
                 type:'POST',
                 url:'../follow/',
                 data:{'name':s},
                 dataType: 'script',
                 success:function(e){
-                    $(".btn.btn-primary.follow").hide();
-                    $(".btn.btn-primary.unfollow").show();
+                    follow.hide();
+                    unfollow.show();
                 },
             });
         });
-
-
          $(".btn.btn-primary.unfollow").on('click',function () {
-            var s = $(this).parent(".container").children(".name").children(".gfdb").html();
-            alert(s);
+            var s = $(this).parent(".container").children(".name").children(".gfdb.names").html();
+            var follow = $(this).parent(".container").children(".btn.btn-primary.follow");
+            var unfollow = $(this).parent(".container").children(".btn.btn-primary.unfollow");
             $.ajax({
                 type:'POST',
                 url:'../unfollow/',
                 data:{'name':s},
                 dataType: 'script',
                 success:function(e){
-                    $(".btn.btn-primary.unfollow").hide();
-                    $(".btn.btn-primary.follow").show();
+                    unfollow.hide();
+                    follow.show();
                 },
             });
         });
@@ -99,6 +100,18 @@
             event.preventDefault();
             //window.location.replace("http://stackoverflow.com");
         })*/
+        var checkfol = $("#checkfollow").html();
+
+         $(".gfdb.names").each(function () {
+            var follow = $(this).parent(".name").parent(".container").children(".btn.btn-primary.follow");
+            var unfollow = $(this).parent(".name").parent(".container").children(".btn.btn-primary.unfollow");
+            var tn = $(this).html();
+            var index = checkfol.indexOf(tn);
+            if(index > 0){
+                follow.hide();
+                unfollow.show();
+            }
+        });
     });
     $(window).resize(function () {
         var hw = $(window).width();
@@ -137,6 +150,7 @@
         $("#personalFilter").css("display","block");
         $("#filterandsearch").css("margin-top","5%");
     }
+
 </script>
 <div id="home">
     <div id="parametersWrapper">
@@ -174,12 +188,17 @@
             </form>
         </div>
     </div>
+    <div id="checkfollow" style="display: none">
+        {% for user in request.user.followings.all %}
+          {{user}}
+        {% endfor %}
+    </div>
     <div id="results">
         {% for user in users %}
             <div class="card" >
               <img class="searchuserimg" src="{{user.picture_url}}" alt="Avatar">
               <div class="container">
-                  <div class="name"><span class="tit">Name: </span><span class="gfdb">{{user.username}}</span></div>
+                  <div class="name"><span class="tit">Name: </span><span class="gfdb names">{{user.username}}</span></div>
                   <div class="age"><span class="tit">Age: </span><span class="gfdb">{{user.age}}</span></div>
                   <div class="lookingfor"><span class="tit">Looking for: </span>
                       <span class="gfdb">

@@ -32,31 +32,33 @@
 <div id="home">
     <div id="pictureAndName">
         <div id="profilePicture">
-            <img id="userPicture" src="{% static 'img/lol.jpg' %}"/> <!-- Find a good image for the logo -->
+            <img id="userPicture" src="{{user.picture_url}}"/> <!-- Find a good image for the logo -->
         </div>
         <div id="userBasicInfo">
             <div id="username">
                 {{ user.username }}
             </div>
             <div id="userAge">
-                {{ user.email }}
                 {% if user.gender == "w" %}
-                    , Women
+                    Women
                 {% else %}
-                    , Men
+                    Men
                 {% endif %}
-                , {{ user.sexual_orientation }}
-                , {{ user.looking_for }}
-                , {{ user.age }}
-            </div>
-            <div>
-                <button>
+                {% if user.sexual_orientation %}
+                ,{{ user.sexual_orientation }}
+                {% endif %}
+                {% if user.looking_for %}
+                ,{{ user.looking_for }}
+                {% endif %}
+                {% if user.age %}
+                ,{{ user.age }}
+                {% endif %}
             </div>
         </div>
     </div>
-    <div id="information">
-        <span id="summary">
-            <div>
+    <div id="information" >
+        <div id="summary" class="details">
+            <div class="ttt">
                 <span class="tit">Summary</span>
             </div>
             <div id="summarytext">
@@ -64,13 +66,13 @@
                     {% if user.summary %}
                         {{user.summary}}
                     {% else %}
-                        God! There's a super LAAAAAZZZZY guy......
+                        God! There's a super LAAAAAAAAZZZZY guy......
                     {% endif %}
                 </p>
             </div>
-        </span>
-        <span id="thinkings">
-            <div>
+        </div>
+        <div id="thinkings" class="details">
+            <div class="ttt">
                 <span class="tit">Thinkings</span>
             </div>
             <div id="thinkingstext">
@@ -82,9 +84,9 @@
                     {% endif %}
                 </p>
             </div>
-        </span>
-        <span id="entertainement">
-            <div>
+        </div>
+        <div id="entertainement" class="details">
+            <div class="ttt">
                 <span class="tit">Entertainement</span>
             </div>
             <div id="entertainementtext">
@@ -96,9 +98,9 @@
                     {% endif %}
                 </p>
             </div>
-        </span>
-        <span id="we_behavior">
-            <div>
+        </div>
+        <div id="we_behavior" class="details">
+            <div class="ttt">
                 <span class="tit">We_behavior</span>
             </div>
             <div id="we_behaviortext">
@@ -110,9 +112,9 @@
                     {% endif %}
                 </p>
             </div>
-        </span>
-        <span id="essentials">
-            <div>
+        </div>
+        <div id="essentials" class="details">
+            <div class="ttt">
                 <span class="tit">Essentials</span>
             </div>
             <div id="essentialstext">
@@ -124,9 +126,9 @@
                     {% endif %}
                 </p>
             </div>
-        </span>
-        <span id="messaging_conditions">
-            <div>
+        </div>
+        <div id="messaging_conditions" class="details">
+            <div class="ttt">
                 <span class="tit">Messaging_conditions</span>
             </div>
             <div id="messaging_conditionstext">
@@ -138,7 +140,7 @@
                     {% endif %}
                 </p>
             </div>
-        </span>
+        </div>
     </div>
 </div>
 

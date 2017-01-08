@@ -186,11 +186,25 @@
                 {% else %}
                     Men
                 {% endif %}
-                , {{ user.sexual_orientation }}
-                , {{ user.looking_for }}
-                , {{ user.age }}
-            </div>
-            <div>
+                {% if user.sexual_orientation %}
+                ,{{ user.sexual_orientation }}
+                {% endif %}
+                {% if user.looking_for %}
+                    {% for looking in user.looking_for %}
+                        {% if looking == "short_term" %}
+                            Short.
+                        {%elif looking == "long_term"%}
+                            Long.
+                        {%elif looking == "sex"%}
+                            Sex.
+                        {%else%}
+                            Friend.
+                        {%endif%}
+                  {% endfor %}
+                {% endif %}
+                {% if user.age %}
+                ,{{ user.age }}
+                {% endif %}
             </div>
         </div>
     </div>
@@ -235,7 +249,7 @@
                 </p>
             </div>
             <div id="thinkingsedit" style="display:none">
-                <form id="edit" action="../........................../" method="post">
+                <form id="edit" action="../edit/" method="post">{% csrf_token %}
                     <textarea id="thinkings" name="thinkings" value="1" >
                     {% if user.thinkings %}
                         {{user.thinkings}
@@ -261,7 +275,7 @@
                 </p>
             </div>
             <div id="entertainementedit" style="display:none">
-                <form id="edit" action="../........................../" method="post">
+                <form id="edit" action="../edit/" method="post">{% csrf_token %}
                 <textarea id="entertainement" name="entertainement" value="1" >
                 {% if user.entertainement %}
                     {{user.entertainement}
@@ -287,7 +301,7 @@
                 </p>
             </div>
             <div id="we_behavioredit" style="display:none">
-                <form id="edit" action="../........................../" method="post">
+                <form id="edit" action="../edit/" method="post">{% csrf_token %}
                 <textarea id="we_behavior" name="we_behavior" value="1" >
                 {% if user.we_behavior %}
                     {{user.we_behavior}
@@ -313,7 +327,7 @@
                 </p>
             </div>
             <div id="essentialsedit" style="display:none">
-                <form id="edit" action="../........................../" method="post">
+                <form id="edit" action="../edit/" method="post">{% csrf_token %}
                 <textarea id="essentials" name="essentials" value="1" >
                 {% if user.essentials %}
                     {{user.essentials}
@@ -339,7 +353,7 @@
                 </p>
             </div>
             <div id="messaging_conditionsedit" style="display:none">
-                <form id="edit" action="../........................../" method="post">
+                <form id="edit" action="../edit/" method="post">{% csrf_token %}
                     <textarea id="messaging_conditions" name="messaging_conditions" value="1" >
                     {% if user.messaging_conditions %}
                         {{user.messaging_conditions}
