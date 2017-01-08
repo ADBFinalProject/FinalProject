@@ -17,6 +17,141 @@
     $(document).ready(function () {
         var h = $("#userPicture").css("height");
         $("#pictureAndName").css("height",h);
+        var w = $("#main_container").css("width");
+        var h = $("#userPicture").css("height");
+        $("#pictureAndName").css("height",h);
+        var w1 = parseInt(w.slice(0,w.length-2))
+        if(w1 < 960){
+            $("#home").css("width","960px");
+        }else{
+            $("#home").css("width","90%");
+        }
+        $(".ui-icon.ui-icon-pencil.summary").on('click',function () {
+            if($("#summaryedit").css("display") == "none") {
+
+                $("#summarytext").hide();
+                $("#summaryedit").show();
+
+                var ts = $("#summarytext").children("p").text();
+                if($.trim(ts) != "God! There's a super LAAAAAZZZZY guy......"){
+                    $("#summaryedit").children("form").children("textarea").val($.trim(ts));
+                }
+            }
+        });
+        $(".ui-icon.ui-icon-pencil.thinkings").on('click',function () {
+            if($("#thinkingsedit").css("display") == "none") {
+                $("#thinkingstext").hide();
+                $("#thinkingsedit").show();
+
+                var ts = $("#thinkingstext").children("p").text();
+                if($.trim(ts) != "God! There's a super LAAAAAZZZZY guy......"){
+                    $("#thinkingsedit").children("form").children("textarea").val($.trim(ts));
+                }
+            }
+        });
+        $(".ui-icon.ui-icon-pencil.entertainement").on('click',function () {
+            if($("#entertainementedit").css("display") == "none") {
+                $("#entertainementtext").hide();
+                $("#entertainementedit").show();
+
+                var ts = $("#entertainementtext").children("p").text();
+                if($.trim(ts) != "God! There's a super LAAAAAZZZZY guy......"){
+                    $("#entertainementedit").children("form").children("textarea").val($.trim(ts));
+                }
+            }
+        });
+        $(".ui-icon.ui-icon-pencil.we_behavior").on('click',function () {
+            if($("#we_behavioredit").css("display") == "none") {
+                $("#we_behaviortext").hide();
+                $("#we_behavioredit").show();
+
+                var ts = $("#we_behaviortext").children("p").text();
+                if($.trim(ts) != "God! There's a super LAAAAAZZZZY guy......"){
+                    $("#we_behavioredit").children("form").children("textarea").val($.trim(ts));
+                }
+            }
+        });
+        $(".ui-icon.ui-icon-pencil.essentials").on('click',function () {
+            if($("#essentialsedit").css("display") == "none") {
+                $("#essentialstext").hide();
+                $("#essentialsedit").show();
+
+                var ts = $("#essentialstext").children("p").text();
+                if($.trim(ts) != "God! There's a super LAAAAAZZZZY guy......"){
+                    $("#essentialsedit").children("form").children("textarea").val($.trim(ts));
+                }
+            }
+        });
+        $(".ui-icon.ui-icon-pencil.messaging_conditions").on('click',function () {
+            if($("#messaging_conditionsedit").css("display") == "none") {
+                $("#messaging_conditionstext").hide();
+                $("#messaging_conditionsedit").show();
+
+                var ts = $("#messaging_conditionstext").children("p").text();
+                if($.trim(ts) != "God! There's a super LAAAAAZZZZY guy......"){
+                    $("#messaging_conditionsedit").children("form").children("textarea").val($.trim(ts));
+                }
+            }
+        });
+        $("#summarybutton").on('click',function () {
+            $.ajax({
+                url:"../match_result/",
+                data:$("#summaryedit").children("form").children("textarea").val(),
+                type:"POST",
+                success:function(){
+                    $("#summarytext").show();
+                    $("#summaryedit").hide();
+                },
+                error:function () {
+                    alert("error");
+                }
+            });
+        })
+
+        $("#thinkingsbutton").on('click',function () {
+            $("#thinkingstext").show();
+            $("#thinkingsedit").hide();
+        })
+        $("#entertainementbutton").on('click',function () {
+            $("#entertainementtext").show();
+            $("#entertainementedit").hide();
+        })
+        $("#we_behaviorbutton").on('click',function () {
+            $("#we_behaviortext").show();
+            $("#we_behavioredit").hide();
+        })
+        $("#essentialsbutton").on('click',function () {
+            $("#essentialstext").show();
+            $("#essentialsedit").hide();
+        })
+        $("#messaging_conditionsbutton").on('click',function () {
+            $("#messaging_conditionstext").show();
+            $("#messaging_conditionsedit").hide();
+        })
+        $("#summarycb").on('click',function () {
+            $("#summarytext").show();
+            $("#summaryedit").hide();
+        })
+        $("#thinkingscb").on('click',function () {
+            $("#thinkingstext").show();
+            $("#thinkingsedit").hide();
+        })
+        $("#entertainementcb").on('click',function () {
+            $("#entertainementtext").show();
+            $("#entertainementedit").hide();
+        })
+        $("#we_behaviorcb").on('click',function () {
+            $("#we_behaviortext").show();
+            $("#we_behavioredit").hide();
+        })
+        $("#essentialscb").on('click',function () {
+            $("#essentialstext").show();
+            $("#essentialsedit").hide();
+        })
+        $("#messaging_conditionscb").on('click',function () {
+            $("#messaging_conditionstext").show();
+            $("#messaging_conditionsedit").hide();
+        })
     })
     $(window).resize(function () {
         var w = $("#main_container").css("width");
@@ -58,64 +193,157 @@
     </div>
     <div id="information">
         <span id="summary">
-            <h3 class="tit">Summary</h3>
-            <p>
-                {% if user.summary %}
-                    {{user.summary}}
-                {% else %}
-                    God! There's a super LAAAAAZZZZY guy......
-                {% endif %}
-            </p>
+            <div>
+                <span class="tit">Summary</span>
+                <span class="ui-icon ui-icon-pencil summary"></span>
+            </div>
+            <div id="summarytext">
+                <p>
+                    {% if user.summary %}
+                        {{user.summary}}
+                    {% else %}
+                        God! There's a super LAAAAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+            <div id="summaryedit" style="display:none">
+                <form id="edit" action="../........................../" method="post">
+                    <textarea value="1" >
+                    </textarea>
+                    <button id="summarybutton">submit</button>
+                </form>
+                <button id="summarycb">cancel</button>
+            </div>
         </span>
         <span id="thinkings">
-            <h3 class="tit">thinkings</h3><span class="ui-icon ui-icon-pencil" style="width: 20px;height: 20px;"></span>
-            <p>
+            <div>
+                <span class="tit">Thinkings</span>
+                <span class="ui-icon ui-icon-pencil thinkings"></span>
+            </div>
+            <div id="thinkingstext">
+                <p>
+                    {% if user.thinkings %}
+                        {{user.thinkings}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+            <div id="thinkingsedit" style="display:none">
+                <form id="edit" action="../........................../" method="post">
+                <textarea value="1" >
                 {% if user.thinkings %}
-                    {{user.thinkings}}
-                {% else %}
-                    God! There's a super LAAAAAZZZZY guy......
+                    {{user.thinkings}
                 {% endif %}
-            </p>
+                </textarea>
+                <button id="thinkingsbutton">submit</button>
+                </form>
+                <button id="thinkingscb">cancel</button>
+            </div>
         </span>
         <span id="entertainement">
-            <h3 class="tit">entertainement</h3>
-            <p>
+            <div>
+                <span class="tit">Entertainement</span>
+                <span class="ui-icon ui-icon-pencil entertainement"></span>
+            </div>
+            <div id="entertainementtext">
+                <p>
+                    {% if user.entertainement %}
+                        {{user.entertainement}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+            <div id="entertainementedit" style="display:none">
+                <form id="edit" action="../........................../" method="post">
+                <textarea value="1" >
                 {% if user.entertainement %}
-                    {{user.entertainement}}
-                {% else %}
-                    God! There's a super LAAAAAZZZZY guy......
+                    {{user.entertainement}
                 {% endif %}
-            </p>
+                </textarea>
+                <button id="entertainementbutton">submit</button>
+                </form>
+                <button id="entertainementcb">cancel</button>
+            </div>
         </span>
         <span id="we_behavior">
-            <h3 class="tit">We behavior</h3>
-            <p>
-                {% if user.behavior %}
-                    {{user.behavior}}
-                {% else %}
-                    God! There's a super LAAAAAZZZZY guy......
+            <div>
+                <span class="tit">We_behavior</span>
+                <span class="ui-icon ui-icon-pencil we_behavior"></span>
+            </div>
+            <div id="we_behaviortext">
+                <p>
+                    {% if user.we_behavior %}
+                        {{user.we_behavior}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+            <div id="we_behavioredit" style="display:none">
+                <form id="edit" action="../........................../" method="post">
+                <textarea value="1" >
+                {% if user.we_behavior %}
+                    {{user.we_behavior}
                 {% endif %}
-            </p>
+                </textarea>
+                <button id="we_behaviorbutton">submit</button>
+                </form>
+                <button id="we_behaviorcb">cancel</button>
+            </div>
         </span>
         <span id="essentials">
-            <h3 class="tit">essentials</h3>
-            <p>
+            <div>
+                <span class="tit">Essentials</span>
+                <span class="ui-icon ui-icon-pencil essentials"></span>
+            </div>
+            <div id="essentialstext">
+                <p>
+                    {% if user.essentials %}
+                        {{user.essentials}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+            <div id="essentialsedit" style="display:none">
+                <form id="edit" action="../........................../" method="post">
+                <textarea value="1" >
                 {% if user.essentials %}
-                    {{user.essentials}}
-                {% else %}
-                    God! There's a super LAAAAAZZZZY guy......
+                    {{user.essentials}
                 {% endif %}
-            </p>
+                </textarea>
+                <button id="essentialsbutton">submit</button>
+                </form>
+                <button id="essentialscb">cancel</button>
+            </div>
         </span>
         <span id="messaging_conditions">
-            <h3 class="tit">Messaging conditions</h3>
-            <p>
-                {% if user.messaging_conditions %}
-                    {{user.messaging_conditions}}
-                {% else %}
-                    God! There's a super LAAAAAZZZZY guy......
-                {% endif %}
-            </p>
+            <div>
+                <span class="tit">Messaging_conditions</span>
+                <span class="ui-icon ui-icon-pencil messaging_conditions"></span>
+            </div>
+            <div id="messaging_conditionstext">
+                <p>
+                    {% if user.messaging_conditions %}
+                        {{user.messaging_conditions}}
+                    {% else %}
+                        God! There's a super LAAAAAZZZZY guy......
+                    {% endif %}
+                </p>
+            </div>
+            <div id="messaging_conditionsedit" style="display:none">
+                <form id="edit" action="../........................../" method="post">
+                    <textarea value="1" >
+                    {% if user.messaging_conditions %}
+                        {{user.messaging_conditions}
+                    {% endif %}
+                    </textarea>
+                    <button id="messaging_conditionsbutton">submit</button>
+                </form>
+                <button id="messaging_conditionscb">cancel</button>
+            </div>
         </span>
     </div>
 </div>
