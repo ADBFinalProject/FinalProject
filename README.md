@@ -45,6 +45,7 @@ Don't forget to migrate user data
 ```
 cd ../../jobs/data_migration
 python insertion_data_mySQL.py
+# then insert for neo4j
 python add_UserNodes.py
 python user_location_rel.py
 python add_init_usr_rel.py
@@ -67,3 +68,8 @@ This is the login page
 ![alt tag](https://raw.githubusercontent.com/ADBFinalProject/FinalProject/master/img/login.png)
 
 
+Clean up the neo4j db with the folling steps
+```
+cd FinalProject/jobs/data_migration
+python clean_neo4j.py
+```
