@@ -20,7 +20,7 @@
         var w = $("#main_container").css("width");
         var h = $("#userPicture").css("height");
         $("#pictureAndName").css("height",h);
-        var w1 = parseInt(w.slice(0,w.length-2))
+        var w1 = parseInt(w.slice(0,w.length-2));
         if(w1 < 960){
             $("#home").css("width","960px");
         }else{
@@ -94,70 +94,55 @@
             }
         });
         $("#summarybutton").on('click',function () {
-            var data = {
-                texta : $("#summaryedit").children("form").children("textarea").val(),
-                'csrfmiddlewaretoken': '{{ csrf_token }}',
-            };
-            alert(data['texta']);
-            $.ajax({
-                type:'POST',
-                url:'../edit/?'+'texta='+ $("#summaryedit").children("form").children("textarea").val(),
-                dataType: 'script',
-                success:function(){
-                    $("#summarytext").show();
-                    $("#summaryedit").hide();
-                },
-                error:function () {
-                    alert("error");
-                }
-            });
-        })
+            $("#summarytext").show();
+            $("#summaryedit").hide();
+        });
 
         $("#thinkingsbutton").on('click',function () {
             $("#thinkingstext").show();
             $("#thinkingsedit").hide();
-        })
+        });
         $("#entertainementbutton").on('click',function () {
             $("#entertainementtext").show();
             $("#entertainementedit").hide();
-        })
+        });
         $("#we_behaviorbutton").on('click',function () {
             $("#we_behaviortext").show();
             $("#we_behavioredit").hide();
-        })
+        });
         $("#essentialsbutton").on('click',function () {
             $("#essentialstext").show();
             $("#essentialsedit").hide();
-        })
+        });
         $("#messaging_conditionsbutton").on('click',function () {
             $("#messaging_conditionstext").show();
             $("#messaging_conditionsedit").hide();
-        })
+        });
         $("#summarycb").on('click',function () {
             $("#summarytext").show();
             $("#summaryedit").hide();
-        })
+        });
         $("#thinkingscb").on('click',function () {
             $("#thinkingstext").show();
             $("#thinkingsedit").hide();
-        })
+        });
         $("#entertainementcb").on('click',function () {
             $("#entertainementtext").show();
             $("#entertainementedit").hide();
-        })
+        });
         $("#we_behaviorcb").on('click',function () {
             $("#we_behaviortext").show();
             $("#we_behavioredit").hide();
-        })
+        });
         $("#essentialscb").on('click',function () {
             $("#essentialstext").show();
             $("#essentialsedit").hide();
-        })
+        });
         $("#messaging_conditionscb").on('click',function () {
             $("#messaging_conditionstext").show();
             $("#messaging_conditionsedit").hide();
-        })
-    })
+        });
+    });
     $(window).resize(function () {
         var w = $("#main_container").css("width");
         var h = $("#userPicture").css("height");
@@ -169,12 +154,16 @@
             $("#home").css("width","90%");
         }
          location.reload();
-    })
+    });
 </script>
 <div id="home">
     <div id="pictureAndName">
         <div id="profilePicture">
+            {% if user.picture_url %}
             <img id="userPicture" src="{{user.picture_url}}"/> <!-- Find a good image for the logo -->
+            {% else %}
+            <img id="userPicture" src="{% static 'img/img_avatar.png'%}"/>
+            {% endif %}
         </div>
         <div id="userBasicInfo">
             <div id="username">
@@ -255,9 +244,9 @@
                         {{user.thinkings}
                     {% endif %}
                     </textarea>
-                    <button id="thinkingsbutton">submit</button>
+                    <button id="thinkingsbutton" type="submit" >submit</button>
                 </form>
-                <button id="thinkingscb">cancel</button>
+                <button id="thinkingscb" type="submit" >cancel</button>
             </div>
         </div>
         <div id="entertainement" class="details">

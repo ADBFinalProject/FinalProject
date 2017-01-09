@@ -32,7 +32,11 @@
 <div id="home">
     <div id="pictureAndName">
         <div id="profilePicture">
+            {% if user.picture_url %}
             <img id="userPicture" src="{{user.picture_url}}"/> <!-- Find a good image for the logo -->
+            {% else %}
+            <img id="userPicture" src="{% static 'img/img_avatar.png'%}"/>
+            {% endif %}
         </div>
         <div id="userBasicInfo">
             <div id="username">

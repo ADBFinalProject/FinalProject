@@ -124,7 +124,7 @@ div #home{
     color: #2e6da4;
 }
 
-.name,.age,.lookingfor,.orientation{
+.name,.age,.lookingfor,.orientation,.distance{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 
     width: 48%;
@@ -158,21 +158,30 @@ div #home{
     float: left;
     overflow-y:scroll;
     word-wrap:break-word;
-    margin-bottom: 10px;
 }
 
-.btn.btn-primary.follow,.btn.btn-primary.detail{
+.btn.btn-primary.follow{
+    margin-top: 10px;
     margin-bottom: 1px;
-    margin-right: 0.2%;
+    margin-right: 0.5%;
+    width: 23%;
+    float: right;
+}
+
+.btn.btn-primary.detail{
+    margin-top: 10px;
+    margin-bottom: 1px;
+    margin-right: 0.5%;
     width: 23%;
     float: right;
 }
 
 .btn.btn-primary.unfollow{
+    margin-top: 10px;
     margin-right: 1%;
     background: #ff0000;
     margin-bottom: 1px;
-    margin-right: 0.2%;
+    margin-right: 0.5%;
     width: 23%;
     float: right;
 }

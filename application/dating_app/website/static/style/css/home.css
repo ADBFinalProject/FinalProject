@@ -72,7 +72,7 @@ div #home{
 
 .details{
     background-color: #eae1e7;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
     border: 2px solid #ffffff;
     border-bottom-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -123,21 +123,15 @@ div #home{
     margin-top: 7px;
     margin-left: 5%;
     margin-right: 5%;
-    color: #000000;
 }
 
-#information div div form button{
-    width: 200px;
-    float: right;
-    margin-right: 50px;
-    color: #000000;
-}
 
-#information div div button{
-    color: #000000;
+button{
     width: 200px;
+    height: 40px;;
     float: right;
     margin-right: 50px;
+    margin-bottom: 10px;
 }
 
 #summary{
@@ -147,33 +141,3 @@ div #home{
 #summarytext,#thinkingstext,#entertainementtext,#we_behaviortext,#essentialstext,#messaging_conditionstext{
     width:90%;
 }
-
-
-/*
-#information span div span{
-    width:30%;
-    font-size: 30px;
-    margin-left: 3%;
-}
-
-#information span p{
-    font-size: 20px;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    margin-right: 5%;
-    border: 1px solid #ffffff;
-}
-
-#information span div span{
-    float: right;
-}
-
-#essentials{
-    margin-bottom: 20px;
-}
-
-.ui-icon.ui-icon-pencil{
-    border: 1px solid #ffffff;
-    float: left;
-}
-*/
