@@ -39,6 +39,19 @@ Now you should be able to run the server:
 ```
 python manage.py runserver
 ```
+
+Don't forget to migrate user data
+
+```
+cd ../../jobs/data_migration
+python insertion_data_mySQL.py
+python add_UserNodes.py
+python user_location_rel.py
+python add_init_usr_rel.py
+```
+
+Now you can start the application !!
+
 Go on: http://127.0.0.1:8000/
 
 If you want to access to the admin interface:
