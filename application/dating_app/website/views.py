@@ -165,8 +165,9 @@ def get_user_from_query(query):
     for user_neo4j in users_neo4j[0]:
         for user_sql in users_sqlite3:
             if user_sql.username == user_neo4j[0]:
-                final_user_list.append(user_sql)
+                final_user_list.append((user_sql, int(user_neo4j[1])/1000))
                 break
+    print final_user_list
     return final_user_list
 
 
