@@ -52,31 +52,18 @@ for user in ALL_USR_json.keys():
         print user
         coordinate=ALL_USR_json[user]['generated_location'].split()[0]
         coordinates = ALL_USR_json[user]['generated_location'].split(',')
+        if ALL_USR_json[user]['gender'] == 'Woman':
+        	gender = 'w'
+       	else:
+       		gender = 'm'
+
         user_node = Node('user',
                          user_id=user,
-                         orientation=ALL_USR_json[user]['orientation'],
-                         user_url=ALL_USR_json[user]['user_url'],
-                         gender=ALL_USR_json[user]['gender'],
-                         age=ALL_USR_json[user]['age'],
-                         rel_status=ALL_USR_json[user]['rel_status'],
+                         gender=gender,
                          location=ALL_USR_json[user]['generated_location'].split()[1],
                          #generated_location=coordinate,
                          longitude=float(coordinates[3]),
-                         latitude=float(coordinates[1]),
-                         id=ALL_USR_json[user]['id'],
-                         entertainement=ALL_USR_json[user]['entertainement'],
-                         we_behavior=ALL_USR_json[user]['we_behavior'],
-                         essentials=ALL_USR_json[user]['essentials'],
-                         summary=ALL_USR_json[user]['summary'],
-                         thinkings=ALL_USR_json[user]['thinkings'],
-                         messaging_conditions=ALL_USR_json[user]['messaging_conditions']
+                         latitude=float(coordinates[1])
                          )
-
-        for look in ALL_USR_json[user]['looking_for']:
-                if look == 'age':
-                        #user_node.add_label(ALL_USR_json[user]['looking_for']['age'])
-                        continue
-                if ALL_USR_json[user]['looking_for'][look]:
-                        user_node.add_label(look)
         txuser.create(user_node)
 txuser.commit()
