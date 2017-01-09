@@ -222,7 +222,7 @@
                   <div class="orientation"><span class="tit">Orientation: </span><span class="gfdb">{{user.0.sexual_orientation}}</span></div>
                   <div class="description"><p>{{user.0.summary}}</p></div>
                   {% if user.1 %}
-                    <div class="distance"><span class="tit">Distance: </span><span class="gfdb">{{user.1}}</span></div>
+                    <div class="distance"><span class="tit">Distance: </span><span class="gfdb">{{user.1|floatformat:2}} Km</span></div>
                   {% endif %}
                   <button class="btn btn-primary detail" type="submit" value="login" href="../{{user.0.username}}" data-target="../{{user.username}}" onclick="myfunc()">Details</button>
                   <button class="btn btn-primary follow" type="submit" value="login" >Follow!</button>

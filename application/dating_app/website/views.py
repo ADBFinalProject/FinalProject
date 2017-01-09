@@ -114,6 +114,10 @@ def get_match(request):
                 request.session['looking_for'] = looking_for
             else:
                 request.session['looking_for'] = ['sex', 'friend', 'short_term', 'long_term']
+            tmp_users = []
+            for user in users:
+                tmp_users.append((user,))
+            users = tmp_users
         else:  # People around
             limit = '1000'
             query = build_neo4j_cyper_query(request.user, limit)
@@ -121,6 +125,11 @@ def get_match(request):
             request.session['people_around'] = people_around
     else:
         users = get_user_from_sessions(request)
+        tmp_users = []
+        for user in users:
+            tmp_users.append((user,))
+        users = tmp_users
+
     paginator = Paginator(users, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:
@@ -165,9 +174,11 @@ def get_user_from_query(query):
     for user_neo4j in users_neo4j[0]:
         for user_sql in users_sqlite3:
             if user_sql.username == user_neo4j[0]:
-                final_user_list.append((user_sql, int(user_neo4j[1])/1000))
+                if len(user_neo4j) == 1:
+                    final_user_list.append((user_sql,))
+                else:
+                    final_user_list.append((user_sql, user_neo4j[1]/1000.))
                 break
-    print final_user_list
     return final_user_list
 
 
@@ -242,7 +253,6 @@ class UserFormView(View):
     # Process the form
     def post(self, request):
         form = self.form_class(request.POST)
-        print form.errors
         if form.is_valid():
             user = form.save(commit=False)
             # Cleaning and normalizing data
